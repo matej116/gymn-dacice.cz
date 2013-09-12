@@ -5,6 +5,7 @@ secret.neon
 
 .git*
 .DS_Store
+.htdeployment
 !.gitignore
 !.htaccess
 !web.config
