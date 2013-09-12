@@ -1,13 +1,20 @@
 {block #content}
 
-	<h2 n:block="title"> Ke stažení </h2>
+	<h2 n:block="title" class="pagetitle with-icon icon-download-black"> Ke stažení </h2>
+	<div class="subtitle">Zde najdete školní dokumenty určené ke stažení</div>
 
-	<ol class="downloads">
-		<li n:foreach="$downloads as $download">
-			<h3>
-				<a class="download" href="{$basePath}/files/{$download->file->filename}">
-					{$download->file->title}
-				</a>
-			</h3>
-		</li>
-	</ol>
+	<div class="container">
+		<ol class="downloads row">
+			<li n:foreach="$downloads as $download" class="col-sm-6">
+				<div class="download-item">
+					<h3>{!$download->file->title|texy:inline}</h3>
+					<div class="download">
+						<div class="download-filename">{$download->file->filename}</div>
+						<a href="{$basePath}/files/{$download->file->filename}" class="download-link link-block link-block-small">
+							<span class="with-icon icon-download">Stáhnout</span>
+						</a>
+					</div>
+				</div>
+			</li>
+		</ol>
+	</div>

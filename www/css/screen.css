@@ -120,6 +120,9 @@ h1 {
 .icon-download {
     background-image: url('../img/icons/white/download.png');    
 }
+.icon-download-black {
+    background-image: url('../img/icons/black/download.png');    
+}
 .icon-food {
     background-image: url('../img/icons/black/food.png');
 }
