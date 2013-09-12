@@ -18,7 +18,8 @@
 							</span>
 						{/if}
 					</h4>
-					<a href="{$basePath}/rozvrhy/{$class->id}.htm" class="col-xs-6 col-sm-3 class-header-block with-icon icon-schedule">
+					<a href="http://www.gymn-dacice.cz/rozvrhy/{$class->id}.htm" 
+						class="link-show-schedule col-xs-6 col-sm-3 class-header-block with-icon icon-schedule">
 						Rozvrh&nbsp;třídy 
 					</a>
 					<span class="link-show-class col-xs-6 col-sm-3 col-lg-2 selected class-header-block"
@@ -38,6 +39,7 @@
 	{/foreach}
 	<script>
 		$(function() {
+			{* @TODO do not allow showing both boxes *}
 			$('.link-show-class')
 				.addClass('with-icon')
 				.addClass('icon-down')
@@ -50,6 +52,30 @@
 						.closest('.class')
 							.find('.student-list').slideToggle();
 				});
+			$('.link-show-schedule').click(function() {
+				if ($(window).width() <= 768) {
+					return true;
+				}
+				var $this = $(this);
+				var $iframe = $this.closest('.class').find('.class-schedule');
+				if (!$iframe.length) {
+					$iframe = $('<div class="class-schedule selected row">')
+						.hide()
+						.appendTo($this.closest('.class'))
+						.append($('<iframe>')
+							.attr('src', $this.attr('href'))
+							.css({
+								'width': '100%',
+								'height': '600px',
+								'border': '0',
+							})
+						)
+				}
+				console.log($iframe);
+				$iframe.slideToggle();
+				$this.toggleClass('selected');
+				return false;
+			});
 		});
 	</script>
 
