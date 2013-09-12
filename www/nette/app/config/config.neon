@@ -16,7 +16,7 @@ common:
 		# 	SpecialPagePresenter::renderClasses
 		# 	GymnDaciceImport::__construct
 		classes:
-			'Osmileté ročníky':
+			'Osmileté studium':
 				- prima
 				- sekunda
 				- tercie
@@ -25,7 +25,7 @@ common:
 				- sexta
 				- septima
 				- oktáva
-			'Čtyřleté ročníky':
+			'Čtyřleté studium':
 				- 'I. ročník'
 				- 'II. ročník'
 				- 'III. ročník'
