@@ -40,6 +40,7 @@
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/classes.css">
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/guestbook.css">
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/documents.css">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/contacts.css">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 </head>
@@ -144,17 +145,22 @@
 						</li>
 					</ul>
 				</div>
-			</div>
-		</div>
-		<div id="menu" class="row mainmenu">
-			<div class="nowrap">
-				<span class="title">Kontakty</span>
-				<ul n:block="contacts">
-					<li><strong>Tel., fax:</strong> 123 456 789</li>
-					<li><strong>E-mail:</strong> reditel@gymn-dacice.cz</li>
-					<li><strong>Pevná linka:</strong> 444 222 333</li>
-				</ul>
-				<a n:href="SpecialPage:contacts" class="ajax">Další kontakty</a>
+				<div class="quickcontact-right-block">
+					<h3>Rychlý kontakt</h3>
+					<ol n:inner-block="quickContactList" class="quickcontact">
+						<li><span>Adresa:</span>
+							Gymnázium Dačice<br>
+							B. Němcové 213/V<br>
+							380 01 Dačice<br>
+						</li>
+						<li><span>Tel., fax:</span>
+							384 420 432
+						</li>
+						<li><span>E-mail ředitele:</span> 
+							<a href="mailto:moravek@gymn-dacice.cz">moravek@gymn-dacice.cz</a>
+						</li>
+					</ol>
+				</div>
 			</div>
 		</div>
 	</div>{* #page *}

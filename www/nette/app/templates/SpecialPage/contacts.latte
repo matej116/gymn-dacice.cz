@@ -1,28 +1,25 @@
 {block #content}
 
-	<h2 n:block="title"> Kontakty </h2> 
+	<h2 n:block="title" class="pagetitle with-icon icon-contact"> Kontakty </h2> 
+	<div class="subtitle">Kontakty do školy a na jednotlivé učitele</div>
 
-	{include #contacts}
+	<div class="white-box">
+		<h3> Kontakty do školy </h3>
+		<dl class="quickcontact">
+			{include #quickContactList}
+		</dl>
+	</div>
 
-	<h3> Učitelský sbor </h3>
-
-	<table class="contacts">
-		<tr>
-			<th></th>
-			<th>Jméno</th>
-			<th>Školní e-mail</th>
-		</tr>
-		<tr n:foreach="$teachers as $teacher">
-			<td class="name-title">
-				{$teacher->title}
-			</td>
-			<td class="name"> 
-				{$teacher->firstname} {$teacher->surname}
-			</td>
-			<td class="email">
+	<div class="white-box">
+		<h3> Kontakty na učitele </h3>
+		<ol class="contact-list">
+			<li n:foreach="$teachers as $teacher">
+				<span class="name">
+					{$teacher->title} {$teacher->firstname} {$teacher->surname}:
+				</span>
 				<a href="mailto:{$teacher->school_email}">
 					{$teacher->school_email}
 				</a>
-			</td>
-		</tr>		
-	</table>
+			</li>
+		</ol>
+	</div>

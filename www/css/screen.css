@@ -135,6 +135,9 @@ h1 {
 .icon-attachment {
     background-image: url('../img/icons/black/attachment.png');
 }
+.icon-contact {
+    background-image: url('../img/icons/black/contact.png');
+}
 .icon-right {
     background-image: url('../img/icons/lightgray/right.png');
 }
@@ -296,7 +299,7 @@ div.content {
     background: url('../img/timeline.png') 99px top repeat-y;
 }
 
-.article {
+.article, .white-box {
     background: #fff;
     margin-bottom: 30px;
     padding: 1px 20px 20px;
@@ -425,6 +428,34 @@ div.content {
     background-color: #e4e4e6;
     text-decoration: none;
     background-position: right 50%;
+}
+
+.quickcontact-right-block {
+    padding: 0 20px;
+}
+
+.quickcontact-right-block h3 {
+    font-size: 19px;
+    margin: 0 0 20px;
+}
+
+.quickcontact {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.quickcontact li span {
+    font-weight: bold;
+    height: 100%;
+    display: block;
+}
+
+
+.content .quickcontact li {
+    width: 33%;
+    float: left;
+    display: block;
 }
 
 .articles-paginator {

@@ -1,0 +1,19 @@
+.contact-list {
+    list-style: none;
+    padding: 0;
+    display: table;
+}
+
+.contact-list > li {
+	display: table-row;
+}
+
+.contact-list > li > span,
+.contact-list > li > a {
+	display: table-cell;
+}
+
+.contact-list > li > span {
+	font-weight: bold;
+	padding: 5px 10px 5px 0;
+}
