@@ -493,6 +493,13 @@ class CaptchaControl extends TextBase
 		return 'data:image/png;base64,' . base64_encode($contents);
 	} 
 
+	protected static function imageTtfTextSpacing($img, $size, $x, $y, $color, $font, $text, $letterSpacing) {
+		for ($i = 0; $i < strlen($text); $i++) {
+			$box = $img->ttftext($size, 0, $x, $y, $color, $font, $text[$i]);
+			$x += $letterSpacing + ($box[2] - $box[0]);
+		}
+	}
+
 	/**
 	 * Draw captcha image and encode to base64 string
 	 * @return Image
@@ -504,8 +511,9 @@ class CaptchaControl extends TextBase
 		$size = $this->getFontSize();
 		$textColor = $this->getTextColor();
 		$bgColor = $this->getBackgroundColor();
+		$letterSpacing = 0;
 
-		$box = $this->getDimensions();
+		$box = $this->getDimensions($letterSpacing);
 		$width = $this->getImageWidth();
 		$height = $this->getImageHeight();
 
@@ -517,7 +525,7 @@ class CaptchaControl extends TextBase
 		$x = ($width - $box['width']) / 2;
 		$y = ($height + $box['height']) / 2;
 
-		$first->fttext($size, 0, $x, $y, $textColor, $font, $word);
+		self::imageTtfTextSpacing($first, $size, $x, $y, $textColor, $font, $word, $letterSpacing);
 
 		$frequency = $this->getRandom(0.05, 0.1);
 		$amplitude = $this->getRandom(2, 6);
@@ -555,20 +563,22 @@ class CaptchaControl extends TextBase
 	 * Detects image dimensions and returns image text bounding box.
 	 * @return array
 	 */
-	private function getDimensions()
+	private function getDimensions($letterSpacing)
 	{
 		$box = imagettfbbox($this->getFontSize(), 0, $this->getFontFile(), $this->getWord());
-		$box['width'] = $box[2] - $box[0];
-		$box['height'] = $box[3] - $box[5];
+		$result = array(
+			'width' => ($box[2] - $box[0]) + ($letterSpacing * strlen($this->getWord())),
+			'height' => $box[3] - $box[5],
+		);
 
 		if ($this->getImageWidth() === 0) {
-			$this->setImageWidth($box['width'] + $this->getTextMargin());
+			$this->setImageWidth($result['width'] + $this->getTextMargin());
 		}
 		if ($this->getImageHeight() === 0) {
-			$this->setImageHeight($box['height'] + $this->getTextMargin());
+			$this->setImageHeight($result['height'] + $this->getTextMargin());
 		}
 
-		return $box;
+		return $result;
 	}
 
 	/**
