@@ -1,0 +1,44 @@
+.guestbook {
+	margin-top: 20px;
+}
+
+.guestbook-items {
+	list-style: none;
+	padding: 0;
+}
+
+.guestbook-item {
+	margin: 12px 0;
+	line-height: 1.6;
+}
+
+.guestbook-item .author {
+	font-weight: bold;
+}
+
+.guestbook-item .date {
+	font-weight: bold;
+	display: block;
+	float: right;
+}
+
+.guestbook-item .author:after {
+	content: ":";
+}
+
+.guestbook-items .guestbook-items {
+	margin-left: 31px;
+	border-left: 4px #cccccf solid;
+	padding-left: 20px;
+}
+
+.guestbook-item .reply {
+	color: #9179c9;
+	font-weight: bold;
+	padding-left: 20px;
+	background: url('../img/reply.png') 0 50% no-repeat;
+}
+
+.answer-to {
+	margin-bottom: 30px;
+}

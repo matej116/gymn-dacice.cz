@@ -1,0 +1,19 @@
+{block #content}
+
+	<h2 n:inner-snippet="title"> Výsledek vyhledávání výrazu "{$q}"</h2>
+
+	{if}
+		<ol class="search-results unstyled">
+			<li n:foreach="$results as $article">
+				<h3>
+					<a n:href="Article:show id => $article->id" class="ajax">
+						{$article->title}
+					</a>
+				</h3>
+				<p>{$article->text|striptags|truncate:200}</p>
+			</li>
+		</ol>
+	{else}
+		<div class="info">Nebylo nic nalezeno</div>
+	{/if $iterations}
+

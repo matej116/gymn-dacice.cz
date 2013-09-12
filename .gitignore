@@ -1,0 +1,13 @@
+log/
+temp/
+config.local.neon
+secret.neon
+
+.git*
+.DS_Store
+!.gitignore
+!.htaccess
+!web.config
+
+/resources/
+/Deployment/

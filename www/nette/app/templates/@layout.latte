@@ -1,0 +1,208 @@
+{**
+ * Application layout template.
+ *
+ * @param string   $basePath web base path
+ * @param string   $robots   tell robots how to index the content of a page (optional)
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="old-ie"><![endif]-->
+<!--[if gt IE 8]><!--><html><!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+	<title n:inner-snippet="title">{block|strip}
+			{ifset #title}
+				{capture $title}
+					{include #title|striptags}
+				{/capture}
+				{$title}
+				{if strlen($title)} - {/if}
+			{/ifset}
+			Gymnázium Dačice
+	{/block}</title>
+
+	<script>
+		var $onready = [];
+		var $ = function(f) {
+			$onready.push(f);
+		}
+	</script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/nanoScroller.css">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.min.css">
+	{* @TODO join all css files into one (WebLoader?) *}
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/classes.css">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/guestbook.css">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/documents.css">
+	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+</head>
+<body>
+	<script> document.documentElement.className+=' js' </script>
+	<div id="page" class="container">
+		<div id="header" class="row">
+			<div class="logo-wrap pull-left">
+				<a href="{$basePath}/" class="logo-link ajax">
+					<img src="{$basePath}/img/logo-text.png" width="193" height="60">
+				</a>
+				<h1 class="hidden">
+					<a href="{$basePath}/" title="Úvodní stránka">
+						Gymnázium Dačice
+					</a>
+				</h1>
+			</div>
+			<div class="header-blocks pull-right">
+				<div class="header-block">
+					<a href="supl/suplov.html" class="link-block with-icon icon-table" target="_blank">
+						Suplování
+					</a>
+				</div>
+				<div class="header-block">
+					<a href="https://gw.gymn-dacice.cz/bakaweb/login.aspx" class="link-block with-icon icon-info is-link" target="_blank">
+						Informační systém
+					</a>
+					<div class="header-info is-info">
+							<h4>Důležité upozornění:</h4>
+						<p>
+							Pokud si do svého počítače nenainstalujete 
+							<a href="http://www.gymn-dacice.cz/files/gymnzium_cert_urad_cer.zip">certifikát</a>, 
+							zobrazí se vám při otevření informačního systému informace o existenci problému 
+							s&nbsp;certifikátem zabezpečení tohoto webu a je doporučeno tuto webovou stránku uzavřít. 
+							Uvedená hláška Vás pouze upozorňuje, že nemáte nainstalovaný certifikát. Pokud si tento 
+							certifikát stáhnete a nainstalujete už se Vám uvedené upozornění neobjeví. 
+							Ale i bez nainstalovaného certifikátu se nemusíte ničeho obávat, stránky jsou bezpečné.
+						</p>
+						<a href="http://www.gymn-dacice.cz/files/gymnzium_cert_urad_cer.zip">
+							Stáhněte si certifikát
+						</a>
+					</div>
+				</div>
+				<div class="header-block">
+					<form action="{link Search:results}" method="get" class="search-form ajax">
+						<input type="search" name="q" {ifset $q}value="{$q}"{/ifset} placeholder="Zadejte hledaný výraz...">
+						<input type="submit" value="" class="link-block with-icon icon-search">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div n:snippet="flashes" class="row">
+			<div n:foreach="$flashes as $flash" class="flash flash-{$flash->type}">{$flash->message}</div>
+		</div>
+		<div id="middle" class="row">
+			<div n:snippet="content" class="content col-md-9">
+				{include #content}
+			</div>
+			<div id="right-column" class="col-md-3">
+				<div class="events right-block" n:if="count($events)">
+					<h3 class="with-icon icon-calendar"> Akce </h3>
+					<div class="scrollable">
+						<ol class="content">
+							<li n:foreach="$events as $event">
+								<h4> {$event->title} </h4>
+								<div class="date">
+									<div class="short-weekday">{$event->date|czechDate:'shortWeekDay'}</div>
+									{$event->date|date:'j. n.'}
+									{if $event->date_to} do {$event->date_to|date:'j. n.'} {/if}
+								</div>
+								<p>
+									{$event->text}
+								</p>
+							</li>
+						</ol>
+					</div>
+				</div>
+				<div class="foods right-block">
+					<h3 class="with-icon icon-food"> Jídelníček </h3>
+					<div class="scrollable">
+						<ol class="content">
+							<li n:foreach="$foods as $food">
+								<div class="date">
+									<div class="short-weekday">{$food->date|czechDate:'shortWeekDay'}</div>
+									{$food->date|date:'j. n.'}
+								</div>
+								<div class="foods">
+									<ol class="mainfoods">
+										<li>{$food->main1}</li>
+										<li>{$food->main2}</li>
+									</ol>
+								</div>
+								<div class="soup">{$food->soup}</div>
+							</li>
+						</ol>
+					</div>
+				</div>				
+				<div class="special-pages right-block">
+					<ul>
+						<li n:foreach="$specialPagesMenu as $title => $link">
+							<a n:href="$link" class="ajax with-icon icon-right">{$title}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="menu" class="row mainmenu">
+			<div class="nowrap">
+				<span class="title">Kontakty</span>
+				<ul n:block="contacts">
+					<li><strong>Tel., fax:</strong> 123 456 789</li>
+					<li><strong>E-mail:</strong> reditel@gymn-dacice.cz</li>
+					<li><strong>Pevná linka:</strong> 444 222 333</li>
+				</ul>
+				<a n:href="SpecialPage:contacts" class="ajax">Další kontakty</a>
+			</div>
+		</div>
+	</div>{* #page *}
+	<div id="footer">
+		<div class="container">
+			<ul class="row banners">
+				<li n:foreach="$banners as $banner" class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+					<a href="{$banner->link}" title="{$banner->title}">
+						<img src="{$basePath}/images/{$banner->imagefile}" alt="{$banner->title}" width="120px">
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	{*****************************************************************
+	 *	Now, let the scripts begin!                                  *
+	 *****************************************************************}
+	<script src="{$basePath}/js/modernizr.js"></script>
+	<script>
+		Modernizr.load({
+			test: Modernizr.mq('only all'),
+			nope: {$basePath} + '/js/respond.min.js',
+		});
+		Modernizr.load({
+			test: Modernizr.csscolumns,
+			nope: {$basePath} + '/js/csscolumns.min.js',
+		});
+	</script>
+	{* @TODO load dynamically Zepto (minimalistic version of jQuery) and fallback to jQuery
+		it is not so easy, since I don't know how to simply load it dynamically and wait for it to load
+		<script> document.write('<script src="' + {$basePath} + ('__proto__' in {} ? 'zepto' : 'jquery') + '.js"><\/script>') </script>
+	 *}
+	<script src="{$basePath}/js/jquery.js"></script>
+	<script>
+		// invoke all functions meant to be invoked when DOM ready
+		for (var i in $onready) {
+			$onready[i]();
+		}
+		$onready = undefined;
+	</script>
+	<script src="{$basePath}/js/nette.ajax.js"></script>
+	<script src="{$basePath}/js/history.ajax.js"></script>
+	<script src="{$basePath}/js/ga.ajax.js"></script>
+	<script src="{$basePath}/js/spinner.ajax.js"></script>
+	<script src="{$basePath}/js/bootstrap.min.js"></script>
+	<script src="{$basePath}/js/netteForms.js"></script>
+	<script src="{$basePath}/js/jquery.nanoscroll.js"></script>
+	<script src="{$basePath}/js/main.js"></script>
+</body>
+</html>

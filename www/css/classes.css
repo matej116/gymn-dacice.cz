@@ -1,0 +1,93 @@
+.class-list {
+    padding: 0;
+    list-style: none;
+}
+
+.class-title {
+    margin: 0;
+    padding: 0 20px;
+    line-height: inherit;
+}
+.class {
+    margin: 5px 0;
+}
+.class-header {
+    line-height: 60px;
+    background-color: #fff;
+    font-size: 19px;
+    color: #4f4f4f;
+    white-space: nowrap;
+}
+
+a.class-header-block,
+.class-header-block {
+    color: inherit;
+    background-color: #f7f7fa;
+    border-left: 1px #FFF solid;
+}
+
+.js .link-show-class {
+    cursor: pointer;
+}
+
+.class-header a:hover {
+    text-decoration: none;
+}
+
+.class-header a:hover,
+.class .selected,
+.js .link-show-class:hover  {
+    background-color: #b8b8ba;  
+}
+
+.class-header .with-icon {
+    padding-left: 50px;
+    background-position: 13px 50%;
+}
+
+.icon-down {
+    background-image: url('../img/icons/gray/down.png');
+}
+.icon-up {
+    background-image: url('../img/icons/gray/up.png');
+}
+.icon-schedule {
+    background-image: url('../img/icons/gray/schedule.png');    
+}
+
+.student-list {
+    color: #000;
+    overflow: hidden;
+}
+
+.student-list ol {
+    display: block;
+    list-style: none;
+    padding: 20px 16px;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    height: auto;
+}
+
+.student-list ol li {
+    display: block;
+}
+
+@media (max-width: 767px) {
+
+    .student-list ol {
+        column-count: 1;
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .class-header .with-icon.icon-schedule {
+        padding-left: 5px;
+        background-image: none;
+    }
+
+}

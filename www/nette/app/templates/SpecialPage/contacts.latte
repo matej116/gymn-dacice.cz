@@ -1,0 +1,28 @@
+{block #content}
+
+	<h2 n:block="title"> Kontakty </h2> 
+
+	{include #contacts}
+
+	<h3> Učitelský sbor </h3>
+
+	<table class="contacts">
+		<tr>
+			<th></th>
+			<th>Jméno</th>
+			<th>Školní e-mail</th>
+		</tr>
+		<tr n:foreach="$teachers as $teacher">
+			<td class="name-title">
+				{$teacher->title}
+			</td>
+			<td class="name"> 
+				{$teacher->firstname} {$teacher->surname}
+			</td>
+			<td class="email">
+				<a href="mailto:{$teacher->school_email}">
+					{$teacher->school_email}
+				</a>
+			</td>
+		</tr>		
+	</table>

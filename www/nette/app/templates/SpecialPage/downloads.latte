@@ -1,0 +1,13 @@
+{block #content}
+
+	<h2 n:block="title"> Ke stažení </h2>
+
+	<ol class="downloads">
+		<li n:foreach="$downloads as $download">
+			<h3>
+				<a class="download" href="{$basePath}/files/{$download->file->filename}">
+					{$download->file->title}
+				</a>
+			</h3>
+		</li>
+	</ol>

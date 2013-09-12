@@ -1,0 +1,56 @@
+{block #content}
+	
+	<h2 n:block="title" class="pagetitle with-icon icon-list">Třídy</h2>
+	<div class="subtitle">Seznam žáků, třídních učitelů a rozvrhy</div>
+
+	{foreach $classes as $classesTitle => $classList}
+		<h3>{$classesTitle}</h3>
+		<ol class="container class-list">
+			<li n:foreach="$classList as $class" class="class row container">
+				<div class="class-header row">
+					{var $students = $class->related('student')->order('surname')}
+					<h4 class="col-xs-12 col-sm-6 col-lg-7 class-title">
+						<span class="class-name">{$class->name|firstUpper}</span>
+						{if $teacher = $class->teacher}
+							&ndash; 
+							<span class="class-teacher" title="Třídní učitel{if mb_substr($teacher->surname, -1) === 'á'}ka{/if}">
+								{$teacher->title|capitalize} {$teacher->firstname|capitalize} {$teacher->surname|capitalize}
+							</span>
+						{/if}
+					</h4>
+					<a href="{$basePath}/rozvrhy/{$class->id}.htm" class="col-xs-6 col-sm-3 class-header-block with-icon icon-schedule">
+						Rozvrh&nbsp;třídy 
+					</a>
+					<span class="link-show-class col-xs-6 col-sm-3 col-lg-2 selected class-header-block"
+						data-class="{$class->id}">
+						{count($students)}&nbsp;žáků
+					</span>
+				</div>
+				<div class="student-list selected jshidden row">
+					<ol>
+						<li n:foreach="$class->related('student')->order('surname') as $student">
+							{$student->firstname|capitalize} {$student->surname|capitalize}
+						</li>
+					</ol>
+				</div>
+			</li>
+		</ol>
+	{/foreach}
+	<script>
+		$(function() {
+			$('.link-show-class')
+				.addClass('with-icon')
+				.addClass('icon-down')
+				.removeClass('selected')
+				.click(function() {
+					$(this)
+						.toggleClass('icon-down')
+						.toggleClass('icon-up')
+						.toggleClass('selected')
+						.closest('.class')
+							.find('.student-list').slideToggle();
+				});
+		});
+	</script>
+
+{/block}

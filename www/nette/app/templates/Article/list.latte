@@ -1,0 +1,68 @@
+{block #content}
+<div class="article-list-wrapper">
+	<div class="article-categories">
+		<ul>
+			<li>
+				{ifCurrent list menu => NULL}
+					<span class="link-block link-block-gray link-block-gray-active">Vše</span>
+				{else}
+					<a n:href="list" class="link-block link-block-gray ajax">Vše</a>
+				{/ifCurrent}
+			</li>
+			<li n:foreach="$menu as $menuItem">
+				{ifCurrent list menu => $menuItem->id}
+					<span class="link-block link-block-gray link-block-gray-active">{$menuItem->title}</span>
+				{else}
+					<a n:href="list menu => $menuItem->id" class="link-block link-block-gray ajax">
+						{$menuItem->title}
+					</a>
+				{/ifCurrent}
+			</li>
+		</ul>
+	</div>
+
+	{if $isPrevious}
+		<div class="articles-paginator articles-paginator-previous">
+			<a n:href="this page => $page - 1" class="ajax">
+				Zobrazit novější
+			</a>
+		</div>
+	{/if}
+	<ol n:snippet="article-list" n:class="article-list, $isPrevious ? article-list-with-previous, $isNext? article-list-with-next">
+		<li n:foreach="$articles as $article" class="article" n:snippet="article-$article->id">
+
+			<div class="timeline-point">
+				<div class="article-date">
+					{$article->date|czechDate:'namedDay'}
+				</div>
+				<div class="article-date-to" n:if="$article->date_to">
+					do {$article->date_to|czechDate}
+				</div>
+				<div class="article-category">
+					{$article->menu->title}
+				</div>
+			</div>
+
+			{include g_one-video.latte video => $article->g_one_video}
+			<h3>
+				{!$article->title|texy:inline}
+			</h3>
+			<p class="article-preview">
+				{* don't use texy, just remove html tags (if any) and truncate to 200 chars *}
+				{$article->text|striptags|truncate:300}
+			</p>
+			<a n:href="show id => $article->id" class="link-block link-block-small ajax">
+				Celý článek
+			</a>
+
+		</li>
+	</ol>
+	{if $isNext}
+		<div class="articles-paginator articles-paginator-next">
+			<a n:href="this page => $page + 1" class="ajax">
+				Zobrazit starší
+			</a>
+		</div>
+	{/if}
+
+</div>{* .article-list-wrapper *}

@@ -1,0 +1,28 @@
+{block #content}
+
+	<a n:href="add" class="link-block link-block-big ajax pull-right">
+		Nový dotaz
+	</a>
+
+	<h2 n:block="title" class="pagetitle with-icon icon-book"> Návštěvní kniha </h2>	
+	<div class="subtitle">V návštěvní knize můžete vyjádřit své názory a připomínky, které se týkají naší školy.</div>
+
+	<div class="guestbook-add jshidden">
+		{control guestBookForm}
+	</div>
+
+	<div class="guestbook">
+		<ol class="guestbook-items" n:block="items">
+			<li n:foreach="$items as $item" class="guestbook-item">
+				<span class="author">{$item->author}</span>
+				<span class="date">{$item->date|date:'j. n. Y'}</span>
+				<div class="text">
+					{$item->text}
+				</div>
+				<a n:href="add replyTo => $item->id" class="ajax reply">Odpovědět</a>
+				{if count($item->replies)}
+					{include #items items => $item->replies}
+				{/if}
+			</li>
+		</ol>
+	</div>

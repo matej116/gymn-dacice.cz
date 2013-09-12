@@ -1,0 +1,35 @@
+{*
+ * @param Paginator $paginator
+ * @param array     $steps
+ *}
+
+{if $paginator->pageCount > 1}
+<div class="paginator">
+	{if $paginator->isFirst()}
+		<span class="inactive">« Předchozí</span>
+	{else}
+		<a n:href="this page => $paginator->page - 1" class="ajax">« Předchozí</a>
+	{/if}
+
+	{ifset $steps}
+		{foreach $steps as $step}
+		{if $step == $paginator->page}
+			<span class="current">{$step}</span>
+		{else}
+			<a n:href="this page => $step" class="ajax">{$step}</a>
+		{/if}
+		{if $iterator->nextValue > $step + 1}<span>…</span>{/if}
+		{/foreach}
+	{else}
+		<span class="info">
+			Stránka <strong> {$paginator->page} / {$paginator->pageCount} </strong>
+		</span>
+	{/ifset}
+
+	{if $paginator->isLast()}
+		<span class="inactive">Další »</span>
+	{else}
+		<a n:href="this page => $paginator->page + 1" class="ajax">Další »</a>
+	{/if}
+</div>
+{/if}

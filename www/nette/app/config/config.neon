@@ -1,0 +1,93 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+common:
+	parameters:
+		photos:
+			dir: 'http://www.gymn-dacice.cz/foto/' # temporary set to remote URL
+		g-one:
+			url: 'http://g-one.tv/'
+			videoThumbWidth: 178
+			videoThumbHeight: 100
+		# needed for:
+		# 	SpecialPagePresenter::renderClasses
+		# 	GymnDaciceImport::__construct
+		classes:
+			'Osmileté ročníky':
+				- prima
+				- sekunda
+				- tercie
+				- kvarta
+				- kvinta
+				- sexta
+				- septima
+				- oktáva
+			'Čtyřleté ročníky':
+				- 'I. ročník'
+				- 'II. ročník'
+				- 'III. ročník'
+				- 'IV. ročník'
+		# needed for:
+		# 	BasePresenter::beforeRender
+		menu: # položky menu, které nejsou v databázi
+			'Kontaky': SpecialPage:contacts
+			'Návštěvní kniha': GuestBook:default
+			'Úřední deska': SpecialPage:documents
+			'Ke stažení': SpecialPage:downloads
+			'Třídy': SpecialPage:classes
+
+	php:
+		date.timezone: Europe/Prague
+		zlib.output_compression: yes
+
+	nette:
+		application:
+			errorPresenter: Error
+
+		database:
+			default:
+				dsn: 'mysql:host=127.0.0.1;dbname='
+				user: 
+				password: 
+			sjdacice:
+				dsn: 'mysql:host=sjdacice.cz;dbname='
+				user: 
+				password: 
+
+		session:
+			expiration: 14 days
+
+
+	services:
+		routerFactory: RouterFactory
+		router: @routerFactory::createRouter
+
+		articles: Articles
+		menuManager: MenuManager
+		photos: PhotoStorage(..., %photos.dir%)
+		fulltextSearcher: FulltextSearcher(..., 'fulltext_article')
+		guestBook: GuestBook
+		foods: Foods
+
+		texy: Texy
+		dateFormatter: DateFormatter
+
+		# Components
+		captchaControl: 
+			class: LazyCaptchaControl
+			arguments: ['Opište správně znaky z obrázku']
+			setup:
+				- setImageHeight(55)
+				- setBackgroundColor(["red" = 237, "green" = 237, "blue" = 240]) # #ededf0 = page background color
+
+		# Providers
+		sjdaciceDbProvider: ServiceProvider(..., 'nette.database.sjdacice')
+
+	factories:
+
+production < common:
+
+development < common:

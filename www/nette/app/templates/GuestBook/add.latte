@@ -1,0 +1,16 @@
+{block #content}
+
+	<h2 n:block="title"> Přidat příspěvek do návštěvní knihy </h2>
+
+	{ifset $replyToItem}
+		<h3> Odpověď na jiný přípsěvek </h3>
+		<div class="answer-to guestbook-item">
+			<span class="author">{$replyToItem->author}</span>
+			<span class="date">{$replyToItem->date|date:'j. n. Y'}</span>
+			<div class="text">
+				{$replyToItem->text}
+			</div>
+		</div>
+	{/ifset}
+
+	{control guestBookForm}

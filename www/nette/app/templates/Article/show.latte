@@ -1,0 +1,52 @@
+
+{block #content}
+
+	<div class="article clearfix">
+
+		<h2 n:block="title">{!$article->title|texy:inline}</h2>
+		<div class="article-date">
+			{$article->date|czechDate:'namedDay'}
+			<span class="article-date-to" n:if="$article->date_to">
+				&ndash; {$article->date_to|czechDate}
+			</span>
+		</div>
+		
+		{include g_one-video.latte video => $article->g_one_video}
+
+		<div class="article-text">
+			{* @TODO cache (it must not be based only on $article->id, so maybe use last_edited in database table?) *}
+			{!$article->text|texy}
+		</div>
+
+		{if}
+			<div class="article-attachments">
+
+			{if}
+				<h3>Přílohy</h3>
+				<ul class="files">
+					<li n:foreach="$article->related('attachment') as $attachment">
+						{var $file = $attachment->file}
+						{var $ext = pathinfo($file->filename, PATHINFO_EXTENSION)}
+						<a href="{$basePath}/files/{$file->filename}" class="file file-{$ext}">
+							{$file->title}
+						</a>
+					</li>
+				</ul>
+			{/if isset($attachment)}
+
+			{if}
+				<h3>Fotografie</h3>
+				<ul class="photos row">
+					<li n:foreach="$article->related('photo') as $photo" class="col-md-3 col-sm-4 col-xs-6 thumb-wrap">
+						<a href="{$photoFileNames[$photo->id]}" title="{$photo->title}" class="thumbnail">
+							<img src="{$thumbFileNames[$photo->id]}" width="" height="">
+						</a>
+					</li>
+				</ul>
+			{/if isset($photo)}
+
+			</div>
+		{/if isset($attachment) || isset($photo)}
+
+
+	</div>
