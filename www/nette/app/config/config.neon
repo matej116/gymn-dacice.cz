@@ -78,7 +78,7 @@ common:
 		# Components
 		captchaControl: 
 			class: LazyCaptchaControl
-			arguments: ['Opište správně znaky z obrázku']
+			arguments: ['Opište správně znaky z obrázku', 'Zde opište znaky z obrázku...']
 			setup:
 				- setImageHeight(55)
 				- setBackgroundColor(["red" = 237, "green" = 237, "blue" = 240]) # #ededf0 = page background color

@@ -4,11 +4,14 @@ class LazyCaptchaControl extends CaptchaControl {
 	
 	protected $imageUrl;
 
-	public function __construct($errorMessage = NULL, $imageUrl = 'captcha/image') {
+	public function __construct($errorMessage = NULL, $placeholder = NULL, $imageUrl = 'captcha/image') {
 		if ($errorMessage) {
 			parent::__construct($errorMessage);
 		} else {
 			parent::__construct();
+		}
+		if ($placeholder) {
+			$this->controlPrototype->placeholder = $placeholder;
 		}
 		$this->imageUrl = $imageUrl;
 	}
