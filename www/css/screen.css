@@ -184,8 +184,10 @@ h1 {
     line-height: 67px;
 }
 
-.link-block:hover {
-    background-color: #908bc4;
+a.link-block:hover,
+input.link-block:hover,
+button.link-block:hover {
+    background-color: #7b6fe3;
     text-decoration: none;
     color: #fff;    
 }
