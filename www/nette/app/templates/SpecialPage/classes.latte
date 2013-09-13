@@ -27,7 +27,7 @@
 						{count($students)}&nbsp;žáků
 					</span>
 				</div>
-				<div class="student-list selected jshidden row">
+				<div class="student-list expand-box jshidden row">
 					<ol>
 						<li n:foreach="$class->related('student')->order('surname') as $student">
 							{$student->firstname|capitalize} {$student->surname|capitalize}
@@ -45,12 +45,16 @@
 				.addClass('icon-down')
 				.removeClass('selected')
 				.click(function() {
-					$(this)
+					var $this = $(this);
+					$this
+						.siblings('.selected').click();
+					$this
 						.toggleClass('icon-down')
 						.toggleClass('icon-up')
 						.toggleClass('selected')
 						.closest('.class')
-							.find('.student-list').slideToggle();
+							.find('.student-list')
+								.slideToggle();
 				});
 			$('.link-show-schedule').click(function() {
 				if ($(window).width() <= 768) {
@@ -59,7 +63,7 @@
 				var $this = $(this);
 				var $iframe = $this.closest('.class').find('.class-schedule');
 				if (!$iframe.length) {
-					$iframe = $('<div class="class-schedule selected row">')
+					$iframe = $('<div class="class-schedule expand-box row">')
 						.hide()
 						.appendTo($this.closest('.class'))
 						.append($('<iframe>')
@@ -71,9 +75,9 @@
 							})
 						)
 				}
-				console.log($iframe);
-				$iframe.slideToggle();
+				$this.siblings('.selected').click();
 				$this.toggleClass('selected');
+				$iframe.slideToggle();
 				return false;
 			});
 		});

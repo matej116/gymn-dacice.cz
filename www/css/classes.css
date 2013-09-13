@@ -36,7 +36,8 @@ a.class-header-block,
 
 .class-header a:hover,
 .class .selected,
-.js .link-show-class:hover  {
+.js .link-show-class:hover,
+.class .expand-box  {
     background-color: #b8b8ba;  
 }
 
