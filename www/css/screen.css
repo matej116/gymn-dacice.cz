@@ -74,6 +74,7 @@ input[type=submit] {
 
 .logo-wrap {
     margin-top: 10px;
+    margin-left: 15px;
 }
 
 h1 {
@@ -140,6 +141,9 @@ h1 {
 }
 .icon-contact {
     background-image: url('../img/icons/black/contact.png');
+}
+.icon-black-search {
+    background-image: url('../img/icons/black/search.png');
 }
 .icon-right {
     background-image: url('../img/icons/lightgray/right.png');
@@ -263,12 +267,7 @@ a.link-block-gray:hover {
 
 
 div.content {
-    padding-left: 44px;
     margin-bottom: 40px;
-}
-
-.article-list-wrapper {
-    padding-left: 92px;
 }
 
 .article-categories {
@@ -639,20 +638,22 @@ form .error {
     display: none;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1430px) {
 
     .article .timeline-point {
         display: none;
     }
 
-    div.content {
-        /** bootstrap has default 15px side padding */
-        padding-left: 15px;
-    }
-
-    .article-list-wrapper {
+    .article-list,
+    .articles-paginator {
+        background-image: none;
         padding-left: 0;
+        margin-left: 0;
     }
+}
+
+@media (max-width: 1200px) {
+
 
     .article-list,
     .articles-paginator {
