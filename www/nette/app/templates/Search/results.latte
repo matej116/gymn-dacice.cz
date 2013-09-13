@@ -1,9 +1,10 @@
 {block #content}
 
-	<h2 n:inner-snippet="title"> Výsledek vyhledávání výrazu "{$q}"</h2>
+	<h2 n:block="title" class="pagetitle with-icon icon-black-search"> Výsledek vyhledávání výrazu "{$q}"</h2>
+	<div class="subtitle" n:if="$results->rowCount">{$results->rowCount} výsledků</div>
 
 	{if}
-		<ol class="search-results unstyled">
+		<ol class="search-results">
 			<li n:foreach="$results as $article">
 				<h3>
 					<a n:href="Article:show id => $article->id" class="ajax">
