@@ -38,6 +38,8 @@ common:
 			'Úřední deska': SpecialPage:documents
 			'Ke stažení': SpecialPage:downloads
 			'Třídy': SpecialPage:classes
+			'Absolventi': /files/absolventi.pdf
+			'Bazar učebnic': http://bazarucebnic.g6.cz/
 
 	php:
 		date.timezone: Europe/Prague

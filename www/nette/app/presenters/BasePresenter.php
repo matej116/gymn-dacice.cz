@@ -43,7 +43,20 @@ abstract class BasePresenter extends Presenter
 		$template->banners = $this->menuManager->getBanners();
 		$template->menu = $this->menuManager->getMainMenu();
 		$template->events = $this->menuManager->getEvents();
-		$template->specialPagesMenu = $this->context->params['menu'];
+
+		/** @TODO avoid $this->context */
+		$menu = $this->context->params['menu'];
+		foreach ($menu as $title => &$link) {
+			if (Strings::startsWith($link, 'http://')) {
+				// $link is absolute URL - do nothing with it
+			} elseif ($link[0] === '/' && $link[1] !== '/') {
+				// $link is relative URL - prepend with $basePath
+				$link = $this->template->basePath . $link;
+			} else {
+				$link = $this->link($link);
+			}
+		}
+		$template->specialPagesMenu = $menu;
 		$template->foods = $this->foods->getFutureFoods();
 
 		if ($this->isAjax()) {
