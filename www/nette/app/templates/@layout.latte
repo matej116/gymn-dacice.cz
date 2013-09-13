@@ -105,12 +105,12 @@
 					<div class="scrollable">
 						<ol class="content">
 							<li n:foreach="$events as $event">
+								<h4> {$event->title} </h4>
 								<div class="date">
 									<div class="short-weekday">{$event->date|czechDate:'shortWeekDay'}</div>
 									{$event->date|date:'j. n.'}
 									{if $event->date_to} do {$event->date_to|date:'j. n.'} {/if}
 								</div>
-								<h4> {$event->title} </h4>
 								<p>
 									{$event->text}
 								</p>
