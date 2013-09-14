@@ -1,7 +1,7 @@
 {block #content}
 
 	<h2 n:block="title" class="pagetitle with-icon icon-black-search"> Výsledek vyhledávání výrazu "{$q}"</h2>
-	<div class="subtitle" n:if="$results->rowCount">{$results->rowCount} výsledků</div>
+	<div class="subtitle" n:if="$results && $results->rowCount">{$results->rowCount} výsledků</div>
 
 	{if}
 		<ol class="search-results">
