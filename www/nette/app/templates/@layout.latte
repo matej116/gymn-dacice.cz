@@ -167,9 +167,9 @@
 	<div id="footer">
 		<div class="container">
 			<ul class="row banners">
-				<li n:foreach="$banners as $banner" class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+				<li n:foreach="$banners as $banner" class="banner">
 					<a href="{$banner->link}" title="{$banner->title}">
-						<img src="{$basePath}/images/{$banner->imagefile}" alt="{$banner->title}" width="120px">
+						<img src="http://www.gymn-dacice.cz/images/{$banner->imagefile}" alt="{$banner->title}">
 					</a>
 				</li>
 			</ul>

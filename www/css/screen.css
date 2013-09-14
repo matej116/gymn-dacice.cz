@@ -596,8 +596,9 @@ div.content {
     text-align: center;
 }
 
-.banners li {
-    margin-bottom: 40px;
+.banners .banner {
+    margin: 30px;
+    float: left;
 }
 
 .banners a img { 
