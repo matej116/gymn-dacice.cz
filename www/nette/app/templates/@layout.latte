@@ -92,7 +92,7 @@
 				</div>
 			</div>
 		</div>
-		<div n:snippet="flashes" class="row">
+		<div n:snippet="flashes" class="row" n:if="count($flashes)">
 			<div n:foreach="$flashes as $flash" class="flash flash-{$flash->type}">{$flash->message}</div>
 		</div>
 		<div id="middle" class="row">
