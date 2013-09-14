@@ -118,6 +118,13 @@
 						</ol>
 					</div>
 				</div>
+				<div class="special-pages right-block">
+					<ul>
+						<li n:foreach="$specialPagesMenu as $title => $link">
+							<a href="{$link}" class="ajax with-icon icon-right">{$title}</a>
+						</li>
+					</ul>
+				</div>
 				<div class="foods right-block">
 					<h3 class="with-icon icon-food"> Jídelníček </h3>
 					<div class="scrollable">
@@ -137,13 +144,6 @@
 							</li>
 						</ol>
 					</div>
-				</div>				
-				<div class="special-pages right-block">
-					<ul>
-						<li n:foreach="$specialPagesMenu as $title => $link">
-							<a href="{$link}" class="ajax with-icon icon-right">{$title}</a>
-						</li>
-					</ul>
 				</div>
 				<div class="quickcontact-right-block">
 					<h3>Rychlý kontakt</h3>
