@@ -69,7 +69,7 @@ input[type=submit] {
 .logo-link {
     float: left;
     display: block;
-    margin-right: 18px;
+    margin-right: 10px;
 }
 
 .logo-wrap {
@@ -77,13 +77,25 @@ input[type=submit] {
     margin-left: 15px;
 }
 
-h1 {
+.logo-title {
+    font-size: 18px;
+    line-height: 25px;
+    color: #062c70;
     display: block;
-    line-height: 60px;
-    margin: 0 20px;
-    font-size: 30px;
+    float: left;
+    margin: 0;
+    font-weight: bold;
+    width: 100px;
+    padding: 4px 0;
 }
 
+.logo-title a {
+    color: inherit;
+}
+
+.logo-title a:hover {
+    text-decoration: none;
+}
 
 /* icons */
 
@@ -168,7 +180,7 @@ h1 {
 }
 
 .link-block {
-    background-color: #8179c9;  
+    background-color: #3d6aa1;  
     color: #fff;  
     padding-left: 22px;
     padding-right: 22px;
@@ -197,7 +209,7 @@ h1 {
 a.link-block:hover,
 input.link-block:hover,
 button.link-block:hover {
-    background-color: #7b6fe3;
+    background-color: #3580db;
     text-decoration: none;
     color: #fff;    
 }
