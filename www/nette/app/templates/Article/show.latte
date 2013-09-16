@@ -1,5 +1,27 @@
 
 {block #content}
+	
+	<script>
+		hs.transitions = ['expand', 'crossfade'];
+		//hs.outlineType = 'glossy-dark';
+		//hs.wrapperClassName = 'dark';
+		//hs.fadeInOut = true;
+		//hs.dimmingOpacity = 0.75;
+
+		// Add the controlbar
+		if (hs.addSlideshow) hs.addSlideshow({
+			//slideshowGroup: 'group1',
+			interval: 3000,
+			repeat: true,
+			useControls: true,
+			fixedControls: 'fit',
+			overlayOptions: {
+				opacity: .6,
+				position: 'bottom center',
+				hideOnMouseOut: true
+			}
+		});
+	</script>
 
 	<div class="article clearfix">
 
@@ -38,8 +60,8 @@
 				<h3>Fotografie</h3>
 				<ul class="photos row">
 					<li n:foreach="$article->related('photo') as $photo" class="col-md-3 col-sm-4 col-xs-6 thumb-wrap">
-						<a href="{$photoFileNames[$photo->id]}" title="{$photo->title}" class="thumbnail">
-							<img src="{$thumbFileNames[$photo->id]}" width="" height="">
+						<a href="{$photoFileNames[$photo->id]}" title="{$photo->title}" class="thumbnail" onclick="return hs.expand(this)">
+							<img src="{$thumbFileNames[$photo->id]}">
 						</a>
 					</li>
 				</ul>
