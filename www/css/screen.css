@@ -62,31 +62,30 @@ input[type=submit] {
 
 #header {
     padding-top: 25px;
-    padding-bottom: 65px;
+    padding-bottom: 40px;
 }
 
 
 .logo-link {
     float: left;
     display: block;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
 .logo-wrap {
-    margin-top: 10px;
+    margin-top: -2px;
     margin-left: 15px;
 }
 
 .logo-title {
-    font-size: 18px;
-    line-height: 25px;
+    font-size: 31px;
+    line-height: 43px;
     color: #062c70;
     display: block;
     float: left;
     margin: 0;
     font-weight: bold;
-    width: 100px;
-    padding: 4px 0;
+    width: 120px;
 }
 
 .logo-title a {
