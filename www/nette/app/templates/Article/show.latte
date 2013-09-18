@@ -23,19 +23,19 @@
 		});
 	</script>
 
-	<div class="article clearfix">
+	<ul class="breadcrumb">
+		<li>
+			<a href="{$basePath}"> Úvodní strana </a>
+		</li>
+		<li>
+			<a n:href="Article:list menu => $article->menu->id"> {$article->menu->title} </a>
+		</li>
+		<li>
+			<span class="active"> {$article->title} </span>
+		</li>
+	</ul>
 
-		<ul class="breadcrumb">
-			<li>
-				<a href="{$basePath}"> Úvodní strana </a>
-			</li>
-			<li>
-				<a n:href="Article:list menu => $article->menu->id"> {$article->menu->title} </a>
-			</li>
-			<li>
-				<span class="active"> {$article->title} </span>
-			</li>
-		</ul>
+	<div class="article clearfix">
 
 		<h2 n:block="title">{!$article->title|texy:inline}</h2>
 		<div class="article-date">
