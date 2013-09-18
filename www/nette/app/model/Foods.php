@@ -35,7 +35,7 @@ class Foods extends Object {
 		$db = $this->db;
 		$db->beginTransaction();
 		$foodTable = $db->table('food');
-		$foodTable->where('date < CURDATE()')->delete();
+		$foodTable->delete();
 		foreach ($foods as $food) {
 			$foodTable->insert((array) $food);
 		}
@@ -48,6 +48,7 @@ class Foods extends Object {
 		if (count($selection) != $futureDays) {
 			if ($this->refreshFromSjDacice()) {
 				// foods refreshed, try again
+				// @TODO refresh max once a day?
 				$selection = $this->getFoodsSelection($futureDays);
 			}
 		}
