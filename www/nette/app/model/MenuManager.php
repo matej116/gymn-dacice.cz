@@ -34,7 +34,7 @@ class MenuManager extends Object {
 		if ($onlyFuture) {
 			$selection->where('date >= CURDATE()');
 		}
-		return $selection->order('date DESC');
+		return $selection->order('date ASC');
 	}
 
 }
