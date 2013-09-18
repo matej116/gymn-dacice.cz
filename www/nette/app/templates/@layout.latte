@@ -107,7 +107,11 @@
 				<div class="special-pages right-block">
 					<ul>
 						<li n:foreach="$specialPagesMenu as $title => $link">
-							<a href="{$link}" class="ajax with-icon icon-right">{$title}</a>
+							{var $external = Strings::startsWith($link, 'http://')}
+							<a href="{$link}" {if $external}target="_blank"{/if}
+							   n:class="!$external ? ajax, with-icon, icon-right">
+							   {$title}
+							</a>
 						</li>
 					</ul>
 				</div>
