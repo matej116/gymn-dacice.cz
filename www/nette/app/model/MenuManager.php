@@ -32,7 +32,7 @@ class MenuManager extends Object {
 	public function getEvents($onlyFuture = TRUE) {
 		$selection = $this->db->table('event');
 		if ($onlyFuture) {
-			$selection->where('date > NOW()');
+			$selection->where('date >= CURDATE()');
 		}
 		return $selection->order('date DESC');
 	}
