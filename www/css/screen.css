@@ -160,6 +160,9 @@ input[type=submit] {
 .icon-right {
     background-image: url('../img/icons/lightgray/right.png');
 }
+.icon-lightgray-attachment {
+    background-image: url('../img/icons/lightgray/attachment.png');    
+}
 
 /* /icons */
 
@@ -345,6 +348,15 @@ div.content {
     font-size: 16px;
     line-height: 1.5;
     text-align: justify;
+}
+
+.article .article-info {
+    float: right;
+    padding-left: 35px;
+    width: 200px;
+    line-height: 50px;
+    height: 50px;
+    color: #666;
 }
 
 .article-list .article .article-date-to {
