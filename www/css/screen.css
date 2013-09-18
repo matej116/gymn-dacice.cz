@@ -236,6 +236,7 @@ a.link-block-gray:hover {
     height: 60px;
     display: block;
     float: left;
+    -webkit-border-radius: 0; /* Safari fix */
 }
 
 .header-block form.search-form input[type=search] {
