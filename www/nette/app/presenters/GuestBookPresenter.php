@@ -34,12 +34,18 @@ class GuestBookPresenter extends BasePresenter {
 
 		$form->elementPrototype->addClass('ajax');
 
-		$form->addText('author', 'Jméno:')
+		$input = $form->addText('author', 'Jméno:')
 			->addRule(Form::FILLED, 'Vyplňte své jméno')
-			->controlPrototype->placeholder = 'Sem napište své jméno...';
-		$form->addTextArea('text', 'Text:', NULL, 5)
+			->getControlPrototype();
+		$input->placeholder = 'Sem napište své jméno...';
+		$input->addClass('big');
+
+		$input = $form->addTextArea('text', 'Text:', NULL, 5)
 			->addRule(Form::FILLED, 'Vyplňte text')
-			->controlPrototype->placeholder = 'Sem napište dotaz...';
+			->getControlPrototype();
+		$input->placeholder = 'Sem napište dotaz...';
+		$input->addClass('big');
+
 		$captcha = $this->captchaControl;
 		if ($parent = $captcha->getParent()) {
 			// @TODO on AJAX request it failed here (CaptchaControl has already a parent), this fixed it, but what is
@@ -47,9 +53,12 @@ class GuestBookPresenter extends BasePresenter {
 			$parent->removeComponent($captcha);
 		}
 		$form['captcha'] = $captcha;
-		$form->addProtection("Chyba při odeslání formuláře (CSRF ochrana)");
+		$captcha->controlPrototype->addClass('big');
+
 		$form->addSubmit('submit', 'Odeslat')
 			->controlPrototype->addClass('link-block with-icon icon-send');
+
+		$form->addProtection("Chyba při odeslání formuláře (CSRF ochrana)");
 
 		$form->onSuccess[] = $this->guestBookFormSubmitted;
 

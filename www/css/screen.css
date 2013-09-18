@@ -19,12 +19,12 @@ input, textarea {
     width: 100%;
 }
 
-input {    
+input.big {    
     height: 57px;
     padding: 0 15px;
 }
 
-textarea {
+textarea.big {
     padding: 20px;
 }
 
