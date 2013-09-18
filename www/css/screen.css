@@ -336,18 +336,15 @@ div.content {
 }
 
 .article .article-image {
-    float: left;
-    width: 188px;
-}
-
-.article .article-image + .article-content {
-    width: 618px;
     float: right;
+    width: 188px;
+    margin-left: 15px;
 }
 
 .article .article-preview {
     font-size: 16px;
     line-height: 1.5;
+    text-align: justify;
 }
 
 .article-list .article .article-date-to {
@@ -359,7 +356,7 @@ div.content {
 }
 
 .article-list .g_one-video {
-    margin-top: 28px;
+    margin-top: 0;
 }
 
 .article-list-with-previous {
@@ -515,9 +512,7 @@ div.content {
 }
 
 .g_one-video {
-    float: left;
     position: relative;
-    margin: 15px 10px 0 0;
 }
 .g_one-video-title {
     position: absolute;

@@ -45,7 +45,9 @@
 			</span>
 		</div>
 		
-		{include g_one-video.latte video => $article->g_one_video}
+		<div class="article-image" n:if="$article->g_one_video">
+			{include g_one-video.latte video => $article->g_one_video}
+		</div>
 
 		<div class="article-text">
 			{* @TODO cache (it must not be based only on $article->id, so maybe use last_edited in database table?) *}
