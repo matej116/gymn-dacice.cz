@@ -474,11 +474,6 @@ div.content {
 }
 
 
-.content .quickcontact li {
-    width: 33%;
-    float: left;
-    display: block;
-}
 
 .articles-paginator {
     margin-left: -150px;

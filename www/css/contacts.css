@@ -1,3 +1,14 @@
+.content .quickcontact li {
+    width: 33%;
+    float: left;
+    display: block;
+    height: 95px;
+}
+
+.content .quickcontact li span {
+	height: auto;
+}
+
 .contact-list {
     list-style: none;
     padding: 0;
