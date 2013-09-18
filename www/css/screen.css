@@ -21,7 +21,7 @@ input, textarea {
 
 input {    
     height: 57px;
-    padding: 0 20px;
+    padding: 0 15px;
 }
 
 textarea {
@@ -170,7 +170,7 @@ input[type=submit] {
     display: block;
     height: 60px;
     float: left;
-    margin: 10px;
+    margin: 10px 15px;
     position: relative;
 }
 
@@ -236,12 +236,11 @@ a.link-block-gray:hover {
     height: 60px;
     display: block;
     float: left;
-    -webkit-border-radius: 0; /* Safari fix */
 }
 
 .header-block form.search-form input[type=search] {
     line-height: 15px;
-    width: 210px;
+    width: 200px;
 }
 
 .header-block form.search-form input[type=submit] {
