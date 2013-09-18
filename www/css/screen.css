@@ -78,14 +78,15 @@ input[type=submit] {
 }
 
 .logo-title {
-    font-size: 31px;
-    line-height: 43px;
+    font-size: 24px;
+    line-height: 36px;
     color: #062c70;
     display: block;
     float: left;
     margin: 0;
     font-weight: bold;
     width: 120px;
+    padding: 5px 0;
 }
 
 .logo-title a {
