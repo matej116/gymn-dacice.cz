@@ -133,6 +133,9 @@ input[type=submit] {
 .icon-download {
     background-image: url('../img/icons/white/download.png');    
 }
+.icon-play {    
+    background-image: url('../img/icons/white/play.png');    
+}
 .icon-download-black {
     background-image: url('../img/icons/black/download.png');    
 }
@@ -340,7 +343,7 @@ div.content {
 
 .article .article-image {
     float: right;
-    width: 188px;
+    width: 178px;
     margin-left: 15px;
 }
 
@@ -534,6 +537,14 @@ div.content {
     font-size: 14px;
     margin: 2px;
     bottom: 0;
+}
+.g_one-video-bg {
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 .article .photos {
