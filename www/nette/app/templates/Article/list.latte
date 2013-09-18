@@ -28,7 +28,7 @@
 		</div>
 	{/if}
 	<ol n:snippet="article-list" n:class="article-list, $isPrevious ? article-list-with-previous, $isNext? article-list-with-next">
-		<li n:foreach="$articles as $article" class="article" n:snippet="article-$article->id">
+		<li n:foreach="$articles as $article" class="article clearfix" n:snippet="article-$article->id">
 
 			<div class="timeline-point">
 				<div class="article-date">
@@ -41,18 +41,21 @@
 					{$article->menu->title}
 				</div>
 			</div>
-
-			{include g_one-video.latte video => $article->g_one_video}
-			<h3>
-				{!$article->title|texy:inline}
-			</h3>
-			<p class="article-preview">
-				{* don't use texy, just remove html tags (if any) and truncate to 200 chars *}
-				{$article->text|striptags|truncate:300}
-			</p>
-			<a n:href="show id => $article->id" class="link-block link-block-small ajax">
-				Celý článek
-			</a>
+			<div class="article-image" n:if="$article->g_one_video">
+				{include g_one-video.latte video => $article->g_one_video}
+			</div>
+			<div class="article-content">
+				<h3>
+					{!$article->title|texy:inline}
+				</h3>
+				<p class="article-preview">
+					{* don't use texy, just remove html tags (if any) and truncate to 200 chars *}
+					{$article->text|striptags|truncate:300}
+				</p>
+				<a n:href="show id => $article->id" class="link-block link-block-small ajax">
+					Celý článek
+				</a>
+			</div>
 
 		</li>
 	</ol>

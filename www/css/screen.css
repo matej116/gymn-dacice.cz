@@ -334,6 +334,16 @@ div.content {
     white-space: nowrap;
 }
 
+.article .article-image {
+    float: left;
+    width: 188px;
+}
+
+.article .article-image + .article-content {
+    width: 618px;
+    float: right;
+}
+
 .article .article-preview {
     font-size: 16px;
     line-height: 1.5;
