@@ -315,7 +315,7 @@ div.content {
 .article, .white-box {
     background: #fff;
     margin-bottom: 30px;
-    padding: 20px;
+    padding: 1px 20px 20px;
     position: relative;
 }
 
@@ -472,8 +472,6 @@ div.content {
     height: 100%;
     display: block;
 }
-
-
 
 .articles-paginator {
     margin-left: -150px;

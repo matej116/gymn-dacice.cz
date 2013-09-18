@@ -73,7 +73,7 @@ cite{font-style:normal;}
 .text-left{text-align:left;}
 .text-right{text-align:right;}
 .text-center{text-align:center;}
-.breadcrumb{padding: 0;margin-bottom:20px;list-style:none;border-radius:4px;}.breadcrumb>li{display:inline-block;}.breadcrumb>li+li:before{content:">"	;padding:0 5px;color:#cccccc;}
+.breadcrumb{padding: 0 20px;margin-bottom:20px;list-style:none;border-radius:4px;}.breadcrumb>li{display:inline-block;}.breadcrumb>li+li:before{content:">"	;padding:0 5px;color:#cccccc;}
 .breadcrumb>.active{color:#999999;}
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:'Open Sans',sans-serif;;font-weight:500;line-height:1.1;}h1 small,h2 small,h3 small,h4 small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small{font-weight:normal;line-height:1;color:#999999;}
 h1,h2,h3{margin-top:20px;margin-bottom:10px;}
