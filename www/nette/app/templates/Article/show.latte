@@ -25,10 +25,10 @@
 
 	<ul class="breadcrumb">
 		<li>
-			<a href="{$basePath}"> Úvodní strana </a>
+			<a href="{$basePath}" class="ajax"> Úvodní strana </a>
 		</li>
 		<li>
-			<a n:href="Article:list menu => $article->menu->id"> {$article->menu->title} </a>
+			<a n:href="Article:list menu => $article->menu->id" class="ajax"> {$article->menu->title} </a>
 		</li>
 		<li>
 			<span class="active"> {$article->title} </span>
