@@ -46,6 +46,11 @@ input[type=submit] {
     width: auto;
 }
 
+/* Fix for Safari */
+input {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
 
 .nowrap {
     white-space: nowrap;
@@ -368,6 +373,11 @@ div.content {
     line-height: 66px;
     border-bottom: 1px #efefef solid;
     background-position: 16px 50%;
+}
+
+/* Fix for mobile Safari */
+.scrollable .content {
+    -webkit-overflow-scrolling: touch;
 }
 
 .right-block .scrollable {    
