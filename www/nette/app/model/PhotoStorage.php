@@ -28,17 +28,8 @@ class PhotoStorage extends Object {
 		return $this->dir . '/' . $file;
 	}
 
-	/** @return array($photos, $thumbs) */
-	public function getFileNames($article) {
-		$selection = $this->getSelection($article);
-		$photos = array();
-		$thumbs = array();
-		foreach ($selection as $row) {
-			$key = $row->id;
-			$photos[$key] = $this->prefix($row->filename_photo);
-			$thumbs[$key] = $this->prefix($row->filename_thumb);
-		}
-		return array($photos, $thumbs);
+	public function getImagesDir() {
+		return $this->dir;
 	}
 
 }

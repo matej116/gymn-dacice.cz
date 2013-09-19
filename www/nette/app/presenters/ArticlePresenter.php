@@ -37,10 +37,7 @@ class ArticlePresenter extends BasePresenter
 	public function renderShow($id) {
 		$template = $this->template;
 		$template->article = $this->articles->getArticle($id);
-		list(
-			$template->photoFileNames, 
-			$template->thumbFileNames,
-		) = $this->photos->getFileNames($id);
+		$template->imagesDir = $this->photos->getImagesDir();
 	}
 
 }
