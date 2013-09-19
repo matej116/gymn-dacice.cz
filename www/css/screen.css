@@ -320,8 +320,12 @@ div.content {
 
 .article .article-image {
     float: right;
-    width: 178px;
+    /*width: 178px; width is not necessary */
     margin-left: 15px;
+    height: 100px;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .article .article-preview {
@@ -337,6 +341,7 @@ div.content {
     line-height: 50px;
     height: 50px;
     color: #666;
+    clear: right;
 }
 
 .article-list .article .article-date-to {

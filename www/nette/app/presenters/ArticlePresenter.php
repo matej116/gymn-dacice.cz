@@ -32,6 +32,7 @@ class ArticlePresenter extends BasePresenter
 		$template->page = $page;
 		$template->isPrevious = $page > 1;
 		list($template->articles, $template->isNext) = $this->articles->getArticles($menu, $page);
+		$template->imagesDir = $this->photos->getImagesDir();
 	}
 
 	public function renderShow($id) {

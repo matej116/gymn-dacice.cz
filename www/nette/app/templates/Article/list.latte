@@ -44,9 +44,7 @@
 			<h3>
 				{!$article->title|texy:inline}
 			</h3>
-			<div class="article-image" n:if="$article->g_one_video">
-				{include g_one-video.latte video => $article->g_one_video}
-			</div>
+			{include article-image.latte article => $article}
 			<p class="article-preview">
 				{* remove html tags (if any) and truncate *}
 				{* @TODO cache Texy output *}
