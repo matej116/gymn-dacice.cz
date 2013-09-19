@@ -33,7 +33,7 @@ common:
 		# needed for:
 		# 	BasePresenter::beforeRender
 		menu: # položky menu, které nejsou v databázi
-			'Kontaky': SpecialPage:contacts
+			'Kontakty': SpecialPage:contacts
 			'Návštěvní kniha': GuestBook:default
 			'Úřední deska': SpecialPage:documents
 			'Ke stažení': SpecialPage:downloads
