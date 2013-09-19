@@ -50,6 +50,9 @@ class RouterFactory
 		$router[] = new Route('article?id=<id \d+>', 'Article:show');
 		$router[] = new Route('[list]?menu=<menu \d+>&page=<page \d+>', 'Article:list');
 
+		// Admin
+		$router[] = new Route('admin/<action>', 'Admin:default');
+
 		$router[] = new Route('navstevni-kniha[/<action>]', 'GuestBook:default');
 		$router[] = new Route('<action>', array(
 			'presenter' => 'SpecialPage',

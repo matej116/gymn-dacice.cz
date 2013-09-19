@@ -49,4 +49,22 @@ class Articles extends Object {
 		return $this->table()->wherePrimary($id)->fetch();
 	}
 
+	/** For administration: *********************************************/
+
+	public function getGOneVideos() {
+		return $this->db->table('g_one_video')
+			->order('id DESC')
+			->fetchPairs('id', 'title');
+	}
+
+	public function insert($data) {
+		return $this->table()->insert(array(
+			'title' => $data->title,
+			'text' => $data->text,
+			'date' => $data->date,
+			'g_one_video_id' => $data->g_one_video_id,
+			'menu_id' => $data->menu_id,
+		));
+	}
+
 }

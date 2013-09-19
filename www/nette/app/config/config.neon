@@ -67,6 +67,8 @@ common:
 		routerFactory: RouterFactory
 		router: @routerFactory::createRouter
 
+		authenticator: Authenticator
+
 		articles: Articles
 		menuManager: MenuManager
 		photos: PhotoStorage(..., %photos.dir%)

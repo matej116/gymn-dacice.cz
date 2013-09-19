@@ -9,26 +9,25 @@ class SignPresenter extends BasePresenter
 
 	/**
 	 * Sign-in form factory.
-	 * @return Nette\Application\UI\Form
+	 * @return AppForm
 	 */
 	protected function createComponentSignInForm()
 	{
 		$form = new AppForm;
-		$form->addText('username', 'Username:')
-			->setRequired('Please enter your username.');
+		$form->addText('username', 'Uživatelské jméno:')
+			->setRequired('Zadejte uživatelské jméno');
 
-		$form->addPassword('password', 'Password:')
-			->setRequired('Please enter your password.');
+		$form->addPassword('password', 'Heslo:')
+			->setRequired('Zadejte Vaše heslo.');
 
-		$form->addCheckbox('remember', 'Keep me signed in');
+		$form->addCheckbox('remember', 'Neodhlašovat');
 
-		$form->addSubmit('send', 'Sign in');
+		$form->addSubmit('send', 'Přihlásit se');
 
 		// call method signInFormSucceeded() on success
 		$form->onSuccess[] = $this->signInFormSucceeded;
 		return $form;
 	}
-
 
 
 	public function signInFormSucceeded($form)
@@ -43,19 +42,18 @@ class SignPresenter extends BasePresenter
 
 		try {
 			$this->getUser()->login($values->username, $values->password);
-			$this->redirect('Homepage:');
-			
+			$this->redirect('Admin:');
+
 		} catch (AuthenticationException $e) {
 			$form->addError($e->getMessage());
 		}
 	}
 
 
-
 	public function actionOut()
 	{
 		$this->getUser()->logout();
-		$this->flashMessage('You have been signed out.');
+		$this->flashMessage('Odhlášeno.');
 		$this->redirect('in');
 	}
 
