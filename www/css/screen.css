@@ -70,6 +70,10 @@ input {
     padding-bottom: 40px;
 }
 
+.main-container {
+    position: relative;
+    left: 76px;
+}
 
 .logo-link {
     float: left;
@@ -673,7 +677,12 @@ form .error {
     display: none;
 }
 
-@media (max-width: 1430px) {
+@media (max-width: 1340px) {
+    /* hide timeline */
+    
+    .main-container {
+        left: 0;
+    }
 
     .article .timeline-point {
         display: none;
@@ -703,7 +712,6 @@ form .error {
         padding-left: 11px;
         margin-left: -16px;
     }
-
 
 }
 

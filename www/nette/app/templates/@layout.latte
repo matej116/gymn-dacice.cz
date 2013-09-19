@@ -47,7 +47,7 @@
 </head>
 <body>
 	<script> document.documentElement.className+=' js' </script>
-	<div id="page" class="container">
+	<div id="page" class="container main-container">
 		<div id="header" class="row">
 			<div class="logo-wrap pull-left">
 				<a href="{$basePath}/" class="logo-link ajax">
@@ -157,7 +157,7 @@
 		</div>
 	</div>{* #page *}
 	<div id="footer">
-		<div class="container">
+		<div class="container main-container">
 			<ul class="row banners">
 				<li n:foreach="$banners as $banner" class="banner">
 					<a href="{$banner->link}" title="{$banner->title}">
