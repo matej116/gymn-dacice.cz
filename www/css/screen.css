@@ -766,3 +766,8 @@ form .error {
     }
 
 }
+
+/* Highslide bug fixer @TODO */
+.highslide-container > div > div.highslide-controls {
+    display: none;
+}
