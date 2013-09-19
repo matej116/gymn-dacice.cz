@@ -48,8 +48,9 @@
 				{include g_one-video.latte video => $article->g_one_video}
 			</div>
 			<p class="article-preview">
-				{* don't use texy, just remove html tags (if any) and truncate to 200 chars *}
-				{$article->text|striptags|truncate:300}
+				{* remove html tags (if any) and truncate *}
+				{* @TODO cache Texy output *}
+				{$article->text|truncate:500|texy|striptags|truncate:300}
 			</p>
 			{var $photoCount = $article->related('photo')->count()}
 			{var $attachmentCount = $article->related('attachment')->count()}
