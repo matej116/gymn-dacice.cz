@@ -679,7 +679,7 @@ form .error {
 
 @media (max-width: 1340px) {
     /* hide timeline */
-    
+
     .main-container {
         left: 0;
     }
