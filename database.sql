@@ -17,7 +17,7 @@ CREATE TABLE `article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8_czech_ci NOT NULL,
   `text` text COLLATE utf8_czech_ci COMMENT 'if NULL, article could not be expanded',
-  `date` date NOT NULL,
+  `date` datetime NOT NULL,
   `date_to` date DEFAULT NULL,
   `g_one_video_id` int(11) DEFAULT NULL COMMENT 'G-one video',
   `menu_id` int(11) DEFAULT NULL,
