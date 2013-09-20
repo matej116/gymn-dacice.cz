@@ -29,7 +29,7 @@ class Authenticator extends Object implements IAuthenticator
 			throw new AuthenticationException('Uživatelské jméno nenalezeno.', self::IDENTITY_NOT_FOUND);
 		}
 
-		if ($row->password !== $this->calculateHash($password, $row->password)) {
+		if ($row->password !== $this->calculateHash($password)) {
 			throw new AuthenticationException('Špatné heslo.', self::INVALID_CREDENTIAL);
 		}
 
@@ -44,12 +44,13 @@ class Authenticator extends Object implements IAuthenticator
 	 * @param  string
 	 * @return string
 	 */
-	public static function calculateHash($password, $salt = NULL)
+	public static function calculateHash($password)
 	{
 		if ($password === Strings::upper($password)) { // perhaps caps lock is on
 			$password = Strings::lower($password);
 		}
-		return crypt($password, ($tmp=$salt) ? $tmp : '$2a$07$' . Strings::random(22));
+		static $salt = 'omesillystringfore2uDLvp1Ii2e./U9C8';
+		return md5($salt . str_repeat($password, 5));
 	}
 
 }
