@@ -52,6 +52,11 @@ input {
     border-radius: 0;
 }
 
+a:focus {
+    outline: none;
+    text-decoration: inherit;
+}
+
 .nowrap {
     white-space: nowrap;
 }
