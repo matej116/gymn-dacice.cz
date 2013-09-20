@@ -30,6 +30,8 @@ abstract class BasePresenter extends Presenter
 	}
 
 	public function injectTexy(Texy $texy) {
+		// @TODO move config to config.neon
+		$texy->headingModule->top = 3; // set top heading to <h3>
 		$this->texy = $texy;
 	}
 
