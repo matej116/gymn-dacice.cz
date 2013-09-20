@@ -2,6 +2,8 @@
 
 class Foods extends Object {
 
+	CONST LIMIT_TO_RELOAD = 5;
+
 	protected $db;
 
 	protected $sjdaciceDbProvider;
@@ -45,7 +47,7 @@ class Foods extends Object {
 
 	public function getFutureFoods($futureDays = 10) {
 		$selection = $this->getFoodsSelection($futureDays);
-		if (count($selection) != $futureDays) {
+		if (count($selection) < $futureDays && count($selection) <= self::LIMIT_TO_RELOAD) {
 			if ($this->refreshFromSjDacice()) {
 				// foods refreshed, try again
 				// @TODO refresh max once a day?
