@@ -33,9 +33,7 @@ class LazyCaptchaControl extends CaptchaControl {
 	}
 
 	public function sendImage() {
-		$image = $this->getImage();
-		header('Content-type: image/png');
-		imagepng($image->getImageResource());
+		$this->getImage()->send();
 	}
 
 }
