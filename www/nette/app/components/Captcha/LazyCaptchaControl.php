@@ -25,7 +25,7 @@ class LazyCaptchaControl extends CaptchaControl {
 		if ($presenter = $this->getForm()->getPresenter(FALSE)) {
 			// workaround for not accessible getHttpRequest \/
 			$basePath = rtrim($presenter->getContext()->getByType('HttpRequest')->getUrl()->getBaseUrl(), '/');
-			return $basePath . '/' . $this->imageUrl;
+			return $basePath . '/' . $this->imageUrl . '?' . time(); // unique URL to force no cache
 		} else {
 			// presenter (therefore basePath) is not availible, fallback do data URI
 			return parent::getImageUri();
