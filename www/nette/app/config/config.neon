@@ -7,7 +7,7 @@
 common:
 	parameters:
 		photos:
-			dir: images
+			dir: photo
 			maxSizePx: 1000
 			maxSizeThumbPx: 150
 		g-one:
