@@ -72,8 +72,9 @@
 				<h3>Fotografie</h3>
 				<ul class="photos row">
 					<li n:foreach="$article->related('photo') as $photo" class="col-md-3 col-sm-4 col-xs-6 thumb-wrap">
-						<a href="{$imagesDir}/{$photo->filename_photo}" title="{$photo->title}" class="thumbnail" onclick="return hs.expand(this)">
-							<img src="{$imagesDir}/{$photo->filename_thumb}">
+						<a href="{$basePath}/{$imagesDir}/{$photo->filename_photo}" title="{$photo->title}" 
+						   class="thumbnail" onclick="return hs.expand(this)">
+							<img src="{$basePath}/{$imagesDir}/{$photo->filename_thumb}">
 						</a>
 					</li>
 				</ul>

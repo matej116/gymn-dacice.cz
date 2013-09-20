@@ -7,7 +7,9 @@
 common:
 	parameters:
 		photos:
-			dir: 'http://www.gymn-dacice.cz/foto/' # temporary set to remote URL
+			dir: images
+			maxSizePx: 1000
+			maxSizeThumbPx: 150
 		g-one:
 			url: 'http://g-one.tv/'
 			videoThumbWidth: 178
@@ -71,7 +73,7 @@ common:
 
 		articles: Articles
 		menuManager: MenuManager
-		photos: PhotoStorage(..., %photos.dir%)
+		photos: PhotoStorage(%wwwDir%, %photos.dir%)
 		fulltextSearcher: FulltextSearcher(..., 'fulltext_article')
 		guestBook: GuestBook
 		foods: Foods

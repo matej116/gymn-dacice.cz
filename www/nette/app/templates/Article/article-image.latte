@@ -10,7 +10,7 @@
 		</div>
 	{elseif $photo = $article->related('photo')->limit(1)->fetch()}
 		<div class="article-first-photo">
-			<img src="{$imagesDir}/{$photo->filename_thumb}">
+			<img src="{$basePath}/{$imagesDir}/{$photo->filename_thumb}">
 		</div>
 	{/if}
 {/capture}

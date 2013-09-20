@@ -1,0 +1,12 @@
+{block #content}
+
+	<h2 n:block="title">Články</h2>
+	<a n:href="article">Přidat nový článek</a>
+	<h3>Seznam článků</h3>
+	<ul class="unstyled">
+		<li n:foreach="$articles as $article">
+			<a n:href="article id => $article->id" title="Upravit">
+				<small>{$article->date|date:'j. n. Y'}</small> - {$article->title} 
+			</a>
+		</li>
+	</ul>

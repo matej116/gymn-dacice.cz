@@ -538,7 +538,7 @@ div.content {
     right: 0;
 }
 
-.article .photos {
+ul.photos {
     list-style: none;
     padding: 0;
 }
