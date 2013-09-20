@@ -311,6 +311,11 @@ div.content {
     text-align: justify;    
 }
 
+.article .pravy {
+    /* back compatibility */
+    text-align: right;
+}
+
 .article:last-of-type {
     margin-bottom: 0;
 }
