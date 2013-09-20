@@ -2,15 +2,15 @@
 {capture $inner}
 	{if $video = $article->g_one_video}
 		<div class="g_one-video">
-			<a href="http://g-one.tv/{$video->url}" title="Video na G-one - {$video->title}">
+			<a href="http://g-one.tv/{$video->url}" target="_blank" title="Video na G-one - {$video->title}">
 				<span class="with-icon icon-play g_one-video-bg"></span>
 				<h4 class="g_one-video-title">{$video->title}</h4>
-				<img src="http://g-one.tv/thumbs/{$video->id}.jpg" width="178px" height="100px">
+				<img src="http://g-one.tv/thumbs/{$video->id}.jpg" width="178" height="100">
 			</a>
 		</div>
 	{elseif $photo = $article->related('photo')->limit(1)->fetch()}
 		<div class="article-first-photo">
-			<img src="{$basePath}/{$imagesDir}/{$photo->filename_thumb}">
+			<img src="{$basePath}/{$imagesDir}/{$photo->filename_thumb}" width="178">
 		</div>
 	{/if}
 {/capture}
