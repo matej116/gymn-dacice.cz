@@ -51,7 +51,7 @@ abstract class BasePresenter extends Presenter
 				// $link is absolute URL - do nothing with it
 			} elseif ($link[0] === '/' && $link[1] !== '/') {
 				// $link is relative URL - prepend with $basePath
-				$link = $this->template->basePath . $link;
+				$link = $this->getHttpRequest()->url->baseUrl . ltrim($link, '/');
 			} else {
 				$link = $this->link($link);
 			}
