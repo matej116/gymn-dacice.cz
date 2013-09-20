@@ -28,7 +28,7 @@ class Articles extends Object {
 		$paginator->setPage($page);
 		$selection
 			->limit($paginator->getLength() + 1, $paginator->getOffset())
-			->order('date DESC');
+			->order('date DESC, id DESC');
 		$rows = iterator_to_array($selection);
 		if (count($rows) > $itemsPerPage = $paginator->getItemsPerPage()) {
 			return array(array_slice($rows, 0, $itemsPerPage), TRUE);
