@@ -37,4 +37,8 @@ class MenuManager extends Object {
 		return $selection->order('date ASC');
 	}
 
+	public function getAlerts() {
+		return $this->db->table('alert');
+	}
+
 }

@@ -47,6 +47,15 @@
 </head>
 <body>
 	<script> document.documentElement.className+=' js' </script>
+	<div class="head-alerts" n:if="count($alerts)">
+		<ul class="container main-container">
+			<li n:foreach="$alerts as $alert" class="head-alert">
+				<a n:href="Article:show id => $alert->article_id" class="ajax" title="{$alert->article->title}">
+					{!$alert->title|texy:inline}
+				</a>
+			</li>
+		</ul>
+	</div>
 	<div id="page" class="container main-container">
 		<div id="header" class="row">
 			<div class="logo-wrap pull-left">

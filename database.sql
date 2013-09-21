@@ -7,9 +7,11 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 CREATE TABLE `alert` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `article_id` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8_czech_ci NOT NULL,
-  `text` varchar(1023) COLLATE utf8_czech_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`),
+  CONSTRAINT `alert_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 

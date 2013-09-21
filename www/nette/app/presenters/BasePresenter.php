@@ -42,9 +42,11 @@ abstract class BasePresenter extends Presenter
 	public function beforeRender() {
 		$template = $this->template;
 
-		$template->banners = $this->menuManager->getBanners();
-		$template->menu = $this->menuManager->getMainMenu();
-		$template->events = $this->menuManager->getEvents();
+		$menuManager = $this->menuManager;
+		$template->alerts = $menuManager->getAlerts();
+		$template->banners = $menuManager->getBanners();
+		$template->menu = $menuManager->getMainMenu();
+		$template->events = $menuManager->getEvents();
 
 		/** @TODO avoid $this->context */
 		$menu = $this->context->params['menu'];

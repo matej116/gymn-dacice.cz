@@ -75,6 +75,29 @@ a:focus {
     padding-bottom: 40px;
 }
 
+.head-alerts {
+    background: #3d6aa1;
+}
+
+.head-alerts ul {
+    list-style: none;
+    padding: 0;
+}
+
+.head-alerts .head-alert {
+    height: 68px;
+    line-height: 68px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.head-alerts .head-alert a {
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
 .main-container {
     position: relative;
     left: 76px;
