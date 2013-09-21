@@ -10,7 +10,9 @@
 		</div>
 	{elseif $photo = $article->related('photo')->limit(1)->fetch()}
 		<div class="article-first-photo">
-			<img src="{$basePath}/{$imagesDir}/{$photo->filename_thumb}" width="178">
+			<a n:href="Article:show id => $article->id" class="ajax" title="Přejít na článek">
+				<img src="{$basePath}/{$imagesDir}/{$photo->filename_thumb}" width="178">
+			</a>
 		</div>
 	{/if}
 {/capture}
