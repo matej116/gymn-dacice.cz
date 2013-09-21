@@ -10,7 +10,8 @@
 		</div>
 	{elseif $photo = $article->related('photo')->limit(1)->fetch()}
 		<div class="article-first-photo">
-			<a n:href="Article:show id => $article->id" class="ajax" title="Přejít na článek">
+			<a n:href="Article:show id => $article->id" class="ajax" title="Přejít na článek" 
+			   n:tag-if="!$presenter->isLinkCurrent('Article:show', array(id => $article->id))">
 				<img src="{$basePath}/{$imagesDir}/{$photo->filename_thumb}" width="178">
 			</a>
 		</div>
