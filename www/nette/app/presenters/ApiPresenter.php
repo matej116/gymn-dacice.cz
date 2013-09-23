@@ -23,14 +23,14 @@ class ApiPresenter extends Presenter {
 		$this->sendPayload();
 	}
 
-	public function actionUpdateGOneVideo($id) {
-		$data = $this->request->post;
+	public function actionUpdateGOneVideo() {
+		$data = $this->getHttpRequest()->post;
 		$videoRow = array(
-			'id' => $id,
-			'url' => $data->url,
-			'title' => $data->title,
+			'id' => $data['id'],
+			'url' => $data['url'],
+			'title' => $data['title'],
 		);
-		$this->db->query('INSERT INTO `g-one_video` VALUES ? ON DUPLICATE KEY UPDATE ?', $videoRow, $videoRow);
+		$this->db->query('INSERT INTO `g_one_video` ? ON DUPLICATE KEY UPDATE ?', $videoRow, $videoRow);
 	}
 
 	protected function checkValidApiKey($apiKey = NULL) {
