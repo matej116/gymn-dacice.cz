@@ -25,10 +25,14 @@ class RouterFactory
 		$router[] = new Route('navstevni_kniha.php', 'GuestBook:default');
 		$router[] = new Route('prispevek_kniha.php', 'GuestBook:add');
 		// fotogalerie v nové verzi neexsituje
+		$router[] = new Route('galerie.php?cl_id=<id>', 'Article:show');
 		$router[] = new Route('ke-stazeni.php', 'SpecialPage:downloads');	
 		$router[] = new Route('kalendar.php', 'Article:list');
 		$router[] = new Route('trid<? a|y >.php', 'SpecialPage:classes');
+		$router[] = new Route('kontakty.php', 'SpecialPage:contacts');
 		// @todo absolventi
+
+		$router[] = new Route('login.php', 'Sign:in');
 
 		return $router;
 	}
