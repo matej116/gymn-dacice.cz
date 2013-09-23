@@ -25,7 +25,8 @@ class PhotoStorage extends Object {
 
 	public function delete() {
 		if (func_num_args() > 1) {
-			return array_map(callback($this, 'delete'), func_get_args());
+			$args = func_get_args();
+			return array_map(callback($this, 'delete'), $args);
 		} else {
 			$file = func_get_arg(0);
 			return @unlink($this->prefix($file));
