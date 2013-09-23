@@ -282,12 +282,12 @@ a.link-block-gray:hover {
     float: left;
 }
 
-.header-block form.search-form input[type=search] {
+.header-block form.search-form input.search {
     line-height: 15px;
     width: 200px;
 }
 
-.header-block form.search-form input[type=submit] {
+.header-block form.search-form input.submit {
     background-position: 50% 50%;
     width: 63px;
     padding: 0;
