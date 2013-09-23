@@ -74,6 +74,7 @@ common:
 		articles: Articles
 		menuManager: MenuManager
 		photos: PhotoStorage(%wwwDir%, %photos.dir%)
+		attachments: UploadFileStorage(%wwwDir%, 'files')
 		fulltextSearcher: FulltextSearcher(..., 'fulltext_article')
 		guestBook: GuestBook
 		foods: Foods

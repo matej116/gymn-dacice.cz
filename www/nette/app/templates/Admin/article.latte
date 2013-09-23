@@ -19,3 +19,19 @@
 
 	<h4> Nová fotka </h4>
 	{control photoUploadForm}
+
+	<h3>Přílohy</h3>
+
+	<ul class="files">
+		<li n:foreach="$article->related('attachment') as $attachment">
+			{var $file = $attachment->file}
+			{var $ext = pathinfo($file->filename, PATHINFO_EXTENSION)}
+			<a href="{$basePath}/files/{$file->filename}" class="file file-{$ext}">
+				{$file->title}
+			</a>
+			<a n:href="deleteAttachment! fileId => $file->id" onclick="return confirm('Opravdu smazat?')">Smazat</a>
+		</li>
+	</ul>
+
+	<h4>Nová příloha</h4>
+	{control attachmentForm}

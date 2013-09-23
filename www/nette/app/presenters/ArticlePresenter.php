@@ -32,13 +32,13 @@ class ArticlePresenter extends BasePresenter
 		$template->page = $page;
 		$template->isPrevious = $page > 1;
 		list($template->articles, $template->isNext) = $this->articles->getArticles($menu, $page);
-		$template->imagesDir = $this->photos->getImagesDir();
+		$template->imagesDir = $this->photos->getDir();
 	}
 
 	public function renderShow($id) {
 		$template = $this->template;
 		$template->article = $this->articles->getArticle($id);
-		$template->imagesDir = $this->photos->getImagesDir();
+		$template->imagesDir = $this->photos->getDir();
 	}
 
 }

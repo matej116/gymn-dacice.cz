@@ -30,7 +30,7 @@ class AdminPresenter extends BasePresenter {
 	public function renderArticle($id = NULL) {
 		if ($id) {
 			$this->template->article = $this->articles->getArticle($id);
-			$this->template->imagesDir = $this->images->getImagesDir();
+			$this->template->imagesDir = $this->images->getDir();
 		}
 	}
 
@@ -55,6 +55,14 @@ class AdminPresenter extends BasePresenter {
 			throw new InvalidStateException("No photo found for this article and id = $photoId");
 		}
 		$this->flashMessage("Fotka smazána");
+		$this->redirect('this');
+	}
+
+	public function handleDeleteAttachment($fileId) {
+		$file = $this->articles->getAttachmentFile($fileId);
+		$this->articles->deleteAttachment($this->params['id'], $fileId);
+		$this->context->attachments->delete($file->filename);
+		$this->flashMessage("Přiloha smazána");
 		$this->redirect('this');
 	}
 
@@ -146,7 +154,12 @@ class AdminPresenter extends BasePresenter {
 	}
 
 	public function attachmentFormSubmitted(AppForm $form) {
-
+		$values = $form->values;
+		$file = $values->file;
+		$filename = $this->context->attachments->save($file);
+		$this->articles->addAttachment($this->params['id'], $values->title, $filename);
+		$this->flashMessage('Příloha uložena');
+		$this->redirect('this');
 	}
 
 	public function createComponentEventForm() {
