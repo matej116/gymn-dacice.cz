@@ -100,7 +100,7 @@
 					<div class="scrollable">
 						<ol class="content">
 							<li n:foreach="$events as $event">
-								<h4> {$event->title} </h4>
+								<h4 class="title"> {$event->title} </h4>
 								<div class="date">
 									<div class="short-weekday">{$event->date|czechDate:'shortWeekDay'}</div>
 									{$event->date|date:'j. n.'}

@@ -440,6 +440,10 @@ div.content {
     position: relative;
 }
 
+.right-block .content .title {
+    min-height: 50px;
+}
+
 .right-block li .date {
     display: block;
     right: 100%;
