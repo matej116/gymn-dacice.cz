@@ -14,7 +14,7 @@
 						{if $teacher = $class->teacher}
 							&ndash; 
 							<span class="class-teacher" title="Třídní učitel{if mb_substr($teacher->surname, -1) === 'á'}ka{/if}">
-								{$teacher->title|capitalize} {$teacher->firstname|capitalize} {$teacher->surname|capitalize}
+								{$teacher->title} {$teacher->firstname|capitalize} {$teacher->surname|capitalize}
 							</span>
 						{/if}
 					</h4>
