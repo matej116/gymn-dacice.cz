@@ -583,8 +583,10 @@ ul.photos {
     padding: 0;
 }
 
-.article .photos .thumb-wrap {
-    margin: 10px auto;
+.photos .thumb-wrap {
+    margin: 10px -2px;
+    display: inline-block;
+    float: none;
 } 
 
 .article-text {
