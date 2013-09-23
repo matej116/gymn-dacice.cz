@@ -13,6 +13,7 @@
 				<img src="{$basePath}/{$imagesDir}/{$photo->filename_thumb}">
 			</a>
 			<a n:href="deletePhoto! photoId => $photo->id" onclick="return confirm('Opravdu smazat?')">Smazat</a>
+			{control changePhotoTitleForms-$photo->id}
 		</li>
 	</ul>
 

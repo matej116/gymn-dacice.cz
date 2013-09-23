@@ -5,7 +5,7 @@
  */
 class AdminPresenter extends BasePresenter {
 	
-	private $articles, $images;
+	private $articles, $images, $db;
 	
 	public function startup() {
 		parent::startup();
@@ -13,11 +13,6 @@ class AdminPresenter extends BasePresenter {
 			$this->flashMessage('Je nutné přihlášení', 'error');
 			$this->redirect('Sign:in');
 		}
-	}
-
-	public function actionDefault() {
-		// there is no default action, redirect to "articles"
-		$this->redirect('articles');
 	}
 
 	public function injectArticles(Articles $articles) {
@@ -28,6 +23,10 @@ class AdminPresenter extends BasePresenter {
 		$this->images = $images;
 	}
 
+	public function injectDb(Connection $db) {
+		$this->db = $db;
+	}
+
 	public function renderArticle($id = NULL) {
 		if ($id) {
 			$this->template->article = $this->articles->getArticle($id);
@@ -35,8 +34,16 @@ class AdminPresenter extends BasePresenter {
 		}
 	}
 
+	public function renderEvent($id = NULL) {
+		// empty function, but it must exists, otherwise parameter $id is not added to subrequests
+	}
+
 	public function renderArticles() {
 		$this->template->articles = $this->articles->getAllArticles();
+	}
+
+	public function renderEvents() {
+		$this->template->eventList = $this->db->table('event')->where('date >= CURDATE()')->order('date ASC');
 	}
 
 	public function handleDeletePhoto($photoId) {
@@ -75,6 +82,24 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+	public function createComponentChangePhotoTitleForms() {
+		return new Multiplier(callback($this, 'createChangePhotoTitleForm'));
+	}
+
+	public function createChangePhotoTitleForm($id) {
+		$form = new AppForm;
+		$form->addText('title', 'Titulek');
+		$form->addSubmit('change', 'Změnit');
+		$form->addHidden('photoId', $id);
+		$form->onSuccess[] = $this->changePhotoTitleFormSubmitted;
+		return $form;
+	}
+
+	public function changePhotoTitleFormSubmitted($form) {
+		$values = $form->values;
+		$this->articles->changePhotoTitle($this->params['id'], $values->photoId, $values->title);
+	}
+
 	public function createComponentPhotoUploadForm() {
 		$form = new AppForm;
 		$form->addText('title', 'Titulek');
@@ -109,6 +134,47 @@ class AdminPresenter extends BasePresenter {
 		$this->articles->addPhoto($this->params['id'], $values->title, $fileNamePhoto, $fileNameThumb);
 		$this->flashMessage('Fotka byla úspěšně nahrána a uložena');
 		$this->redirect('this');
+	}
+
+	public function createComponentAttachmentForm() {
+		$form = new AppForm;
+		$form->addText('title', 'Titulek');
+		$form->addUpload('file', 'Soubor');
+		$form->addSubmit('upload', 'Nahrát');
+		$form->onSuccess[] = $this->attachmentFormSubmitted;
+		return $form;
+	}
+
+	public function attachmentFormSubmitted(AppForm $form) {
+
+	}
+
+	public function createComponentEventForm() {
+		$form = new AppForm;
+		$form->addText('date', 'Datum')
+			->setValue(new DateTime53);
+		$form->addText('title', 'Titulek');
+		$form->addTextArea('text', 'Text');
+		if (isset($this->params['id'])) {
+			$form->setValues($this->db->table('event')->wherePrimary($this->params['id'])->fetch()->toArray());
+			$form->addSubmit('change', 'Upravit');
+		} else {
+			$form->addSubmit('add', 'Přidat');
+		}
+		$form->onSuccess[] = $this->eventFormSubmitted;
+		return $form;
+	}
+
+	public function eventFormSubmitted(AppForm $form) {
+		$values = (array) $form->values;
+		if (isset($this->params['id'])) {
+			$this->db->table('event')->wherePrimary($this->params['id'])->update($values);
+			$this->flashMessage('Akce upravena');
+		} else {
+			$this->db->table('event')->insert($values);
+			$this->flashMessage('Akce přidána');
+		}
+		$this->redirect('events');
 	}
 
 }

@@ -101,4 +101,10 @@ class Articles extends Object {
 			'filename_thumb' => $fileNameThumb,
 		));
 	}
+
+	public function changePhotoTitle($articleId, $photoId, $newTitle) {
+		return $this->getPhoto($articleId, $photoId)->update(array(
+			'title' => $newTitle,
+		));
+	}
 }
