@@ -20,8 +20,6 @@ class SignPresenter extends BasePresenter
 		$form->addPassword('password', 'Heslo:')
 			->setRequired('Zadejte Vaše heslo.');
 
-		$form->addCheckbox('remember', 'Neodhlašovat');
-
 		$form->addSubmit('send', 'Přihlásit se');
 
 		// call method signInFormSucceeded() on success
@@ -34,11 +32,7 @@ class SignPresenter extends BasePresenter
 	{
 		$values = $form->getValues();
 
-		if ($values->remember) {
-			$this->getUser()->setExpiration('14 days', FALSE);
-		} else {
-			$this->getUser()->setExpiration('20 minutes', TRUE);
-		}
+		$this->getUser()->setExpiration('14 days', FALSE);
 
 		try {
 			$this->getUser()->login($values->username, $values->password);
