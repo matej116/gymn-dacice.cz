@@ -7,7 +7,7 @@ class PhotoStorage extends UploadFileStorage {
 
 	/* For administration *************************************************/
 
-	public function save(HttpUploadedFile $file, $prefix = '', $maxSize = 0) {
+	public function save(HttpUploadedFile $file, $maxSize = 0, $prefix = '') {
 		$image = Image::fromFile($file->getTemporaryFile());
 		if ($maxSize > 0) {
 			$image->resize($maxSize, $maxSize, Image::FIT | Image::SHRINK_ONLY);

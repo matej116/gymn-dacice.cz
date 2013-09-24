@@ -32,6 +32,8 @@ class RouterFactory
 		$router[] = new Route('kontakty.php', 'SpecialPage:contacts');
 		// @todo absolventi
 
+		$router[] = new Route('vtip.php?clanek=<id>', 'Joke:show');
+
 		$router[] = new Route('login.php', 'Sign:in');
 
 		return $router;
@@ -53,6 +55,7 @@ class RouterFactory
 		$router[] = new Route('[index.php]', 'Article:list', Route::ONE_WAY);
 		$router[] = new Route('article?id=<id \d+>', 'Article:show');
 		$router[] = new Route('[list]?menu=<menu \d+>&page=<page \d+>', 'Article:list');
+		$router[] = new Route('vtip?id=<id>', 'Joke:show');
 
 		// Admin
 		$router[] = new Route('admin/<action>', 'Admin:default');

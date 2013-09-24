@@ -224,3 +224,11 @@ CREATE TABLE `user` (
   `password` varchar(127) COLLATE utf8_czech_ci NOT NULL COMMENT 'salted hash',
   `role` varchar(127) COLLATE utf8_czech_ci NOT NULL DEFAULT 'admin'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+CREATE TABLE `joke` (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `text` varchar(1023) NOT NULL,
+  `date_from` date NOT NULL,
+  `filename_image` varchar(255) NOT NULL,
+  `filename_thumb` varchar(255) NOT NULL
+) COMMENT='' ENGINE='InnoDB'; -- 0.103 s

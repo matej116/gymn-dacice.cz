@@ -1,0 +1,20 @@
+{block #content}
+
+	<h2 n:block="title"> Vtip měsíce </h2>
+
+	<div class="joke-nav">
+		<a n:href="show id => $latestId" n:if="$latestId !== $joke->id" class="latest ajax">
+			Nejnovější vtip
+		</a>
+		<a n:href="show id => $nextId" n:if="$nextId" class="next ajax">
+			&lt;&lt;&lt; Novější
+		</a>
+		<a n:href="show id => $previousId" n:if="$previousId" class="previous ajax">
+			Starší &gt;&gt;&gt;
+		</a>
+	</div>
+
+	<div class="joke-itself">
+		<p>{$joke->text}</p>
+		<img src="{$basePath}/{$jokeImagesDir}/{$joke->filename_image}">
+	</div>

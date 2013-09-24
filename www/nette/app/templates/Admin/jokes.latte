@@ -1,0 +1,12 @@
+{block #content}
+
+	<h2 n:block="title">Vtipy</h2>
+	<a n:href="joke">Přidat nový vtip</a>
+	<h3>Seznam vtipů</h3>
+	<ul class="unstyled">
+		<li n:foreach="$jokes as $joke">
+			<a n:href="joke id => $joke->id" title="Upravit">
+				{$joke->date_from|date:'j. n. Y'} - {$joke->text|truncate:200} 
+			</a>
+		</li>
+	</ul>

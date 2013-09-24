@@ -5,7 +5,9 @@
  */
 class AdminPresenter extends BasePresenter {
 	
-	private $articles, $images, $db;
+	private $articles, $photos, $db;
+
+	private $jokeImages;
 	
 	public function startup() {
 		parent::startup();
@@ -13,24 +15,34 @@ class AdminPresenter extends BasePresenter {
 			$this->flashMessage('Je nutné přihlášení', 'error');
 			$this->redirect('Sign:in');
 		}
+		// these services cannot be injected since they are instances of one class
+		$this->photos = $this->context->photos;
+		$this->jokeImages = $this->context->jokeImages;
+
+		$this->initAcl();
+	}
+
+	public function initAcl() {
+
 	}
 
 	public function injectArticles(Articles $articles) {
 		$this->articles = $articles;
 	}
 
-	public function injectImages(PhotoStorage $images) {
-		$this->images = $images;
-	}
-
 	public function injectDb(Connection $db) {
 		$this->db = $db;
+	}
+
+	public function beforeRender() {
+		parent::beforeRender();
+		$this->template->authorizator = $this->context->getByType('IAuthorizator');
 	}
 
 	public function renderArticle($id = NULL) {
 		if ($id) {
 			$this->template->article = $this->articles->getArticle($id);
-			$this->template->imagesDir = $this->images->getDir();
+			$this->template->imagesDir = $this->photos->getDir();
 		}
 	}
 
@@ -46,10 +58,18 @@ class AdminPresenter extends BasePresenter {
 		$this->template->eventList = $this->db->table('event')->where('date >= CURDATE()')->order('date ASC');
 	}
 
+	public function renderJokes() {
+		$this->template->jokes = $this->db->table('joke')->order('date_from DESC');
+	}
+
+	public function renderJoke($id = NULL) {
+		// empty function, but it must exists, otherwise parameter $id is not added to subrequests		
+	}
+
 	public function handleDeletePhoto($photoId) {
 		$photo = $this->articles->getPhoto($this->params['id'], $photoId);
 		if ($photo) {
-			$this->images->delete($photo->filename_photo, $photo->filename_thumb);
+			$this->photos->delete($photo->filename_photo, $photo->filename_thumb);
 			$this->articles->deletePhoto($this->params['id'], $photoId);
 		} else {
 			throw new InvalidStateException("No photo found for this article and id = $photoId");
@@ -90,6 +110,7 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+
 	public function createComponentChangePhotoTitleForms() {
 		return new Multiplier(callback($this, 'createChangePhotoTitleForm'));
 	}
@@ -117,6 +138,7 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+
 	public function articleFormSubmitted(AppForm $form) {
 		$articleId = isset($this->params['id']) ? $this->params['id'] : NULL;
 		if ($articleId) {
@@ -135,7 +157,7 @@ class AdminPresenter extends BasePresenter {
 	public function photoUploadFormSubmitted(AppForm $form) {
 		$values = $form->values;
 		$photoFile = $values->photo;
-		$photos = $this->images;
+		$photos = $this->photos;
 		$photoParams = $this->context->params['photos'];
 		$fileNamePhoto = $photos->save($photoFile, $photoParams['maxSizePx'], 'f_');
 		$fileNameThumb = $photos->save($photoFile, $photoParams['maxSizeThumbPx'], 'n_');
@@ -178,6 +200,29 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+
+	public function createComponentJokeForm() {
+		$form = new AppForm;
+		$form->addText('date_from', 'Zobrazit od data:')
+    		->addRule(Form::PATTERN, 'Zadejte ve formátu YYYY-MM-DD', '\d{4}-\d\d-\d\d')
+    		->setValue(DateTime53::from('now')->format('Y-m-d'));
+    	$form->addTextArea('text', 'Text vtipu', 30, 2);
+    	$form->addUpload('file', 'Obrázek');
+    	if (isset($this->params['id'])) {
+    		$row = $this->db->table('joke')->where('id', $this->params['id'])->fetch();
+			$form->setValues(array(
+				'date_from' => $row->date_from->format('Y-m-d'),
+				'text' => $row->text,
+			));
+			$form->addSubmit('save', 'Uložit');
+		} else {
+			$form->addSubmit('add', 'Přidat');
+		}
+		$form->onSuccess[] = $this->jokeFormSubmitted;
+		return $form;
+	}
+
+
 	public function eventFormSubmitted(AppForm $form) {
 		$values = (array) $form->values;
 		if (isset($this->params['id'])) {
@@ -188,6 +233,31 @@ class AdminPresenter extends BasePresenter {
 			$this->flashMessage('Akce přidána');
 		}
 		$this->redirect('events');
+	}
+
+	public function jokeFormSubmitted(AppForm $form) {		
+		$values = $form->values;
+		$images = $this->jokeImages;
+		$imageParams = $this->context->params['jokes'];
+		$imageFile = $values->file;
+		$values = array(
+			'date_from' => $values->date_from,
+			'text' => $values->text,
+		);
+		if ($imageFile->isOk()) {
+			$values += array(
+				'filename_image' => $images->save($imageFile, $imageParams['maxSizePx'], '_'),
+				'filename_thumb' => $images->save($imageFile, $imageParams['maxSizeThumbPx'], 'n_'),
+			);
+		}
+		if (isset($this->params['id'])) {
+			$this->jokes->update($this->params['id'], $values);
+			$this->flashMessage('Nový vtip byl nahrán a uložen');
+		} else {
+			$this->jokes->insert($values);
+			$this->flashMessage('Vtip byl uložen');
+		}
+		$this->redirect('jokes');	
 	}
 
 }

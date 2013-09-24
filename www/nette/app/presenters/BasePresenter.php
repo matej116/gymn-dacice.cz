@@ -16,6 +16,8 @@ abstract class BasePresenter extends Presenter
 	/** @var Texy */
 	private $texy;
 
+	protected $jokes;
+
 
 	public function injectMenuManager(MenuManager $menuManager) {
 		$this->menuManager = $menuManager;
@@ -33,6 +35,10 @@ abstract class BasePresenter extends Presenter
 		// @TODO move config to config.neon
 		$texy->headingModule->top = 3; // set top heading to <h3>
 		$this->texy = $texy;
+	}
+
+	public function injectJokes(Jokes $jokes) {
+		$this->jokes = $jokes;
 	}
 
 	/**
@@ -62,6 +68,9 @@ abstract class BasePresenter extends Presenter
 		}
 		$template->specialPagesMenu = $menu;
 		$template->foods = $this->foods->getFutureFoods();
+
+		$template->latestJoke = $this->jokes->getLatest();
+		$template->jokeImagesDir = $this->context->params['jokes']['dir'];
 
 		if ($this->isAjax()) {
 		    $this->invalidateControl('title');

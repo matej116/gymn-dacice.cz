@@ -2,5 +2,6 @@
 
 	<h2 n:block="title">Administrace</h2>
 
-	<a n:href="articles">Články</a><br>
-	<a n:href="events">Akce</a><br>
+	<a n:href="articles" n:if="$user->isAllowed('article', 'edit')">Články</a><br>
+	<a n:href="events" n:if="$user->isAllowed('event', 'edit')">Akce</a><br>
+	<a n:href="jokes" n:if="$user->isAllowed('joke', 'edit')">Vtipy</a><br>

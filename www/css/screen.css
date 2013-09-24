@@ -603,7 +603,7 @@ ul.photos {
     display: none;
 }
 
-.article .files {
+.files {
     list-style: none;
     padding: 0;
 }
@@ -812,4 +812,39 @@ form .error {
 /* Highslide bug fixer @TODO */
 .highslide-container > div > div.highslide-controls {
     display: none;
+}
+
+/*****************************************
+ * Joke presenter                        *
+ *****************************************/
+
+.joke-nav {
+    height: 3em;
+    margin-bottom: 1em;
+    position: relative;
+}
+
+.joke-nav .latest {
+    margin: 0 auto 1em;
+    width: 120px;
+    text-align: center;
+}
+
+.joke-nav a {
+    display: block;
+    height: 1em;
+}
+
+.joke-nav .next {
+    float: left;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.joke-nav .previous {
+    float: right;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }

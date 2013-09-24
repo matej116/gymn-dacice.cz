@@ -162,6 +162,12 @@
 					</ol>
 					<a n:href="SpecialPage:contacts" class="ajax">Další kontakty</a>
 				</div>
+				<div class="joke-right-block">
+					<h3> Vtip měsíce </h3>
+					<a n:href="Joke:show id => $latestJoke->id">
+						<img src="{$basePath}/{$jokeImagesDir}/{$latestJoke->filename_thumb}">
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>{* #page *}

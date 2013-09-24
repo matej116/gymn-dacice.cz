@@ -10,6 +10,10 @@ common:
 			dir: photo
 			maxSizePx: 1000
 			maxSizeThumbPx: 150
+		jokes:
+			dir: vtipy
+			maxSizePx: 476
+			maxSizeThumbPx: 155
 		g-one:
 			url: 'http://g-one.tv/'
 			videoThumbWidth: 178
@@ -74,6 +78,8 @@ common:
 		articles: Articles
 		menuManager: MenuManager
 		photos: PhotoStorage(%wwwDir%, %photos.dir%)
+		jokes: Jokes
+		jokeImages: PhotoStorage(%wwwDir%, %jokes.dir%)
 		attachments: UploadFileStorage(%wwwDir%, 'files')
 		fulltextSearcher: FulltextSearcher(..., 'fulltext_article')
 		guestBook: GuestBook
@@ -92,6 +98,18 @@ common:
 
 		# Providers
 		sjdaciceDbProvider: ServiceProvider(..., 'nette.database.sjdacice')
+
+		# ACL
+		authorizator:
+			class: Permission
+			setup:
+				- addRole('admin')
+				- addRole('jokeAdmin')
+				- addResource('article')
+				- addResource('event')
+				- addResource('joke')
+				- allow('jokeAdmin', 'joke')
+				- allow('admin')
 
 	factories:
 

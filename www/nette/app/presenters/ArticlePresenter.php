@@ -15,13 +15,13 @@ class ArticlePresenter extends BasePresenter
 	 */
 	private $photos;
 
+	public function startup() {
+		parent::startup();
+		$this->photos = $this->context->photos;
+	}
 	
 	public function injectArticles(Articles $articles) {
 		$this->articles = $articles;
-	}
-
-	public function injectPhotos(PhotoStorage $photos) {
-		$this->photos = $photos;
 	}
 
 	public function renderList($menu = NULL, $page = 1) {
