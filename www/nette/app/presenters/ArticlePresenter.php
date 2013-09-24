@@ -37,7 +37,10 @@ class ArticlePresenter extends BasePresenter
 
 	public function renderShow($id) {
 		$template = $this->template;
-		$template->article = $this->articles->getArticle($id);
+		$template->article = $article = $this->articles->getArticle($id);
+		if (!$article) {
+			throw new BadRequestException("Článek nenalazen");
+		}
 		$template->imagesDir = $this->photos->getDir();
 	}
 
