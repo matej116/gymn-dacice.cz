@@ -32,8 +32,6 @@ class GuestBookPresenter extends BasePresenter {
 	public function createComponentGuestBookForm() {
 		$form = new AppForm;
 
-		$form->elementPrototype->addClass('ajax');
-
 		$input = $form->addText('author', 'Jméno:')
 			->addRule(Form::FILLED, 'Vyplňte své jméno')
 			->getControlPrototype();
