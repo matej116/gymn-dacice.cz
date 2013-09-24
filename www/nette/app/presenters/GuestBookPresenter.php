@@ -70,7 +70,7 @@ class GuestBookPresenter extends BasePresenter {
 		$inserted = $this->guestBook->addItem(
 			$formValues->author, 
 			$formValues->text, 
-			@$this->params['answerTo']
+			isset($this->params['replyTo']) ? $this->params['replyTo'] : NULL
 		);
 		if ($inserted) {
 			$this->flashMessage('Váš zápis byl přidán do návštěvní knihy');
