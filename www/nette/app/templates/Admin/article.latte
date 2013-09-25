@@ -6,6 +6,8 @@
 
 	<h3>Fotky</h3>
 
+	<h4> Nová fotka </h4>
+	{control photoUploadForm}
 	<ul class="photos row" n:ifset="$article">
 		<li n:foreach="$article->related('photo') as $photo" class="col-md-3 col-sm-4 col-xs-6 thumb-wrap">
 			<a href="{$basePath}/{$imagesDir}/{$photo->filename_photo}" title="{$photo->title}" 
@@ -17,12 +19,12 @@
 		</li>
 	</ul>
 
-	<h4> Nová fotka </h4>
-	{control photoUploadForm}
 
 	<h3>Přílohy</h3>
 
-	<ul class="files">
+	<h4>Nová příloha</h4>
+	{control attachmentForm}
+	<ul class="files" n:ifset="$article">
 		<li n:foreach="$article->related('attachment') as $attachment">
 			{var $file = $attachment->file}
 			{var $ext = pathinfo($file->filename, PATHINFO_EXTENSION)}
@@ -32,6 +34,3 @@
 			<a n:href="deleteAttachment! fileId => $file->id" onclick="return confirm('Opravdu smazat?')">Smazat</a>
 		</li>
 	</ul>
-
-	<h4>Nová příloha</h4>
-	{control attachmentForm}
