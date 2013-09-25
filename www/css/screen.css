@@ -506,7 +506,7 @@ div.content {
     background-position: right 50%;
 }
 
-.quickcontact-right-block {
+.quickcontact-right-block, .joke-right-block {
     padding: 0 20px;
 }
 
