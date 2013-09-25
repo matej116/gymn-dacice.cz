@@ -848,3 +848,9 @@ form .error {
     right: 0;
     bottom: 0;
 }
+
+.joke-itself, .joke-nav {
+    width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
