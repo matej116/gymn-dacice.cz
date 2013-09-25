@@ -22,7 +22,7 @@ class MenuManager extends Object {
 
 	public function getMenuTitle($id) {
 		$menu = $this->getMainMenu();
-		return $menu[$id]->title;
+		return isset($menu[$id]) ? $menu[$id]->title : NULL;
 	}
 
 	public function getBanners() {

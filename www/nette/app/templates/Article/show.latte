@@ -26,7 +26,7 @@
 		<li>
 			<a href="{$basePath}/" class="ajax"> Úvodní strana </a>
 		</li>
-		<li>
+		<li n:if="$article->menu">
 			<a n:href="Article:list menu => $article->menu->id" class="ajax"> {$article->menu->title} </a>
 		</li>
 		<li>

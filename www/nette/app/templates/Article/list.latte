@@ -37,7 +37,7 @@
 				<div class="article-date-to" n:if="$article->date_to">
 					do {$article->date_to|czechDate}
 				</div>
-				<div class="article-category">
+				<div class="article-category" n:if="$article->menu">
 					{$article->menu->title}
 				</div>
 			</div>
