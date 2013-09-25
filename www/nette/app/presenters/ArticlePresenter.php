@@ -27,7 +27,9 @@ class ArticlePresenter extends BasePresenter
 	public function renderList($menu = NULL, $page = 1) {
 		$template = $this->template;
 		if ($menu !== NULL) {
-			$template->menuTitle = $this->menuManager->getMenuTitle($menu);
+			if ($template->menuTitle = $this->menuManager->getMenuTitle($menu) === NULL) {
+				throw new BadRequestException('Tato kategorie neexistuje');
+			}
 		}
 		$template->page = $page;
 		$template->isPrevious = $page > 1;
