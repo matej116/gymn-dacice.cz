@@ -29,6 +29,7 @@ class ApiPresenter extends Presenter {
 			'id' => $data['id'],
 			'url' => $data['url'],
 			'title' => $data['title'],
+			'time' => $data['time'],
 		);
 		$this->db->query('INSERT INTO `g_one_video` ? ON DUPLICATE KEY UPDATE ?', $videoRow, $videoRow);
 	}
