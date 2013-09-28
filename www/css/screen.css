@@ -19,6 +19,10 @@ input, textarea {
     width: 100%;
 }
 
+input[type=checkbox] {
+    width: auto;
+}
+
 input.big {    
     height: 57px;
     padding: 0 15px;
@@ -48,7 +52,6 @@ input[type=submit] {
 
 /* Fix for Safari */
 input {
-    -webkit-appearance: none;
     border-radius: 0;
 }
 
@@ -507,10 +510,21 @@ div.content {
 }
 
 .quickcontact-right-block, .joke-right-block {
-    padding: 0 20px;
+    padding: 10px 20px;
+    margin-bottom: 26px;
 }
 
-.quickcontact-right-block h3 {
+.quickcontact-right-block {
+    background: #d4d4d6;
+}
+
+.joke-right-block {
+    background: #fff;
+    text-align: center;
+}
+
+.quickcontact-right-block h3,
+.joke-right-block h3 {
     font-size: 19px;
     margin: 0 0 20px;
 }

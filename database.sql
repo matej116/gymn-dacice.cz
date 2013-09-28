@@ -23,7 +23,7 @@ CREATE TABLE `article` (
   `date_to` date DEFAULT NULL,
   `g_one_video_id` int(11) DEFAULT NULL COMMENT 'G-one video',
   `menu_id` int(11) DEFAULT NULL,
-  `show_in_timeline` tinyint(4) NOT NULL DEFAULT '1',
+  `visible` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `menu_id` (`menu_id`),
   KEY `g_one_video_id` (`g_one_video_id`),

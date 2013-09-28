@@ -8,5 +8,6 @@
 			<a n:href="article id => $article->id" title="Upravit">
 				<small>{$article->date|date:'j. n. Y'}</small> - {$article->title} 
 			</a>
+			<em n:if="!$article->visible">skryté</em>
 		</li>
 	</ul>

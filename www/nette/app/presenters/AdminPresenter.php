@@ -41,7 +41,7 @@ class AdminPresenter extends BasePresenter {
 
 	public function renderArticle($id = NULL) {
 		if ($id) {
-			$this->template->article = $this->articles->getArticle($id);
+			$this->template->article = $this->articles->getArticle($id, FALSE);
 			$this->template->imagesDir = $this->photos->getDir();
 		}
 	}
@@ -99,6 +99,9 @@ class AdminPresenter extends BasePresenter {
 			->setPrompt('<Žádné G-one video>');
 		$form->addSelect('menu_id', 'Kategorie', $this->menuManager->getMainMenu()->fetchPairs('id', 'title'));
 
+		$form->addCheckBox('visible', 'Zobrazit?')
+			->setValue(TRUE);
+
 		if (isset($this->params['id'])) {
 			$form->setValues($this->articles->getArticle($this->params['id']));
 			$form->addSubmit('save', 'Uložit');
@@ -141,6 +144,7 @@ class AdminPresenter extends BasePresenter {
 
 	public function articleFormSubmitted(AppForm $form) {
 		$articleId = isset($this->params['id']) ? $this->params['id'] : NULL;
+		dump($form->values);
 		if ($articleId) {
 			$success = $this->articles->update($articleId, $form->values);
 		} else {

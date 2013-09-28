@@ -12,8 +12,12 @@ class Articles extends Object {
 		$this->paginator->setItemsPerPage($perPage);
 	}
 
-	protected function table() {
-		return $this->db->table('article');
+	protected function table($filter = TRUE) {
+		$selection = $this->db->table('article');
+		if ($filter) {
+			$selection->where('visible', 1);
+		}
+		return $selection;
 	}
 
 	/**
@@ -45,8 +49,8 @@ class Articles extends Object {
 		return $selection->count('*');
 	}
 
-	public function getArticle($id) {
-		return $this->table()->wherePrimary($id)->fetch();
+	public function getArticle($id, $filter = FALSE) {
+		return $this->table($filter)->wherePrimary($id)->fetch();
 	}
 
 	/** For administration: *********************************************/
@@ -64,6 +68,7 @@ class Articles extends Object {
 			'date' => $data->date,
 			'g_one_video_id' => $data->g_one_video_id,
 			'menu_id' => $data->menu_id,
+			'visible' => $data->visible,
 		);
 	}
 
@@ -72,11 +77,11 @@ class Articles extends Object {
 	}
 
 	public function update($id, $data) {
-		return $this->table()->wherePrimary($id)->update($this->filterData($data));
+		return $this->table(FALSE)->wherePrimary($id)->update($this->filterData($data));
 	}
 
 	public function getAllArticles() {
-		return $this->table()->order('date DESC');
+		return $this->table(FALSE)->order('date DESC');
 	}
 
 	public function getPhoto($articleId, $photoId) {
