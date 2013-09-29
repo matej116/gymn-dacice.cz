@@ -349,7 +349,22 @@ div.content {
 .article .pravy {
     /* back compatibility */
     text-align: right;
+
+}
+
+.article td.pravy {
+    /* back compatibility */
+    text-align: right;
+    font-weight: bold;
     padding: 0 10px 0 0;
+  vertical-align: top;
+}
+
+.article td.levy {
+    /* back compatibility */
+    text-align: left;
+    padding: 0;
+  vertical-align: top;
 }
 
 .article:last-of-type {
