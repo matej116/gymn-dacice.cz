@@ -126,11 +126,13 @@
 				</div>
 				<div class="g_one-right-block right-block">
 					<h3 class="with-icon icon-g_one"> G-ONE.tv </h3>
-					<ol>
-						<li n:foreach="$videos as $video">
-							{include g_one-video.latte video => $video}
-						</li>
-					</ol>
+					<div class="scrollable">
+						<ol class="content">
+							<li n:foreach="$videos as $video">
+								{include g_one-video.latte video => $video}
+							</li>
+						</ol>
+					</div>
 				</div>
 				<div class="foods right-block">
 					<h3 class="with-icon icon-food"> Jídelníček </h3>

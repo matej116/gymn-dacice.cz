@@ -44,7 +44,7 @@ class MenuManager extends Object {
 	public function getLastGOneVideos() {
 		return $this->db->table('g_one_video')
 			->order('time DESC, id DESC')
-			->limit(3);
+			->limit(5);
 	}
 
 }

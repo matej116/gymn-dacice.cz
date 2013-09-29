@@ -440,7 +440,7 @@ div.content {
     margin: 0;
 }
 
-.right-block ol.content > li {
+.foods ol.content > li {
     margin: 20px 20px 30px 65px;
     position: relative;
 }
@@ -534,6 +534,7 @@ div.content {
 
 .g_one-right-block ol li {
     margin: 10px auto;
+    width: 178px;
 }
 
 .joke-right-block {
