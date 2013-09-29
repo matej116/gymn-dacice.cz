@@ -39,12 +39,13 @@ common:
 		# needed for:
 		# 	BasePresenter::beforeRender
 		menu: # položky menu, které nejsou v databázi
+			'Články': Article:list
 			'Kontakty': SpecialPage:contacts
-			'Návštěvní kniha': GuestBook:default
 			'Úřední deska': SpecialPage:documents
 			'Ke stažení': SpecialPage:downloads
 			'Třídy': SpecialPage:classes
 			'Absolventi': /files/absolventi.pdf
+			'Návštěvní kniha': GuestBook:default
 			'Bazar učebnic': http://bazarucebnic.g6.cz/
 
 	php:

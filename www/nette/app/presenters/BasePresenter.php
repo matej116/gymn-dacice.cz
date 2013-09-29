@@ -53,6 +53,7 @@ abstract class BasePresenter extends Presenter
 		$template->banners = $menuManager->getBanners();
 		$template->menu = $menuManager->getMainMenu();
 		$template->events = $menuManager->getEvents();
+		$template->videos = $menuManager->getLastGOneVideos();
 
 		/** @TODO avoid $this->context */
 		$menu = $this->context->params['menu'];

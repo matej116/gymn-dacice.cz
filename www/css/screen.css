@@ -206,6 +206,9 @@ a:focus {
 .icon-lightgray-attachment {
     background-image: url('../img/icons/lightgray/attachment.png');    
 }
+.icon-g_one {
+    background-image: url('../img/icons/black/play.png');     
+}
 
 /* /icons */
 
@@ -364,7 +367,6 @@ div.content {
 
 .article .article-image {
     float: right;
-    /*width: 178px; width is not necessary */
     margin-left: 15px;
     height: 100px;
     overflow: hidden;
@@ -483,25 +485,33 @@ div.content {
 .foods ol.mainfoods li {
     margin: 0 0 8px;
 }
-
 .special-pages {
     padding: 0;
     background: transparent;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
 .special-pages ul {
     list-style: none;
     padding: 0;
+    display: table-row;
+}
+.special-pages li {
+    display: table-cell;
+    width: 100%; /* trigger fixed layout on table */
 }
 .special-pages a {
-    padding: 0 12px;
+    padding: 0 5px;
     display: block;
     line-height: 40px;
     height: 40px;
-    margin: 1px 0;
+    margin: 0 1px;
     background-color: #d4d4d6;
     background-position: 95% 50%;
     color: #525252;
     font-size: 17px;
+    text-align: center;
 }
 .special-pages a:hover {
     background-color: #e4e4e6;
@@ -516,6 +526,14 @@ div.content {
 
 .quickcontact-right-block {
     background: #d4d4d6;
+}
+
+.g_one-right-block ol {
+    list-style: none;
+}
+
+.g_one-right-block ol li {
+    margin: 10px auto;
 }
 
 .joke-right-block {
@@ -573,6 +591,7 @@ div.content {
 
 .g_one-video {
     position: relative;
+    width: 178px;
 }
 .g_one-video-title {
     position: absolute;
@@ -582,6 +601,7 @@ div.content {
     font-size: 14px;
     margin: 2px;
     bottom: 0;
+    max-width: 172px;
 }
 .g_one-video-bg {
     background-position: center;

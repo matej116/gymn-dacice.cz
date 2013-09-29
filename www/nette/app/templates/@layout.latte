@@ -57,6 +57,17 @@
 		</ul>
 	</div>
 	<div id="page" class="container main-container">
+		<div class="special-pages">
+			<ul>
+				<li n:foreach="$specialPagesMenu as $title => $link">
+					{var $external = Strings::startsWith($link, 'http://')}
+					<a href="{$link}" {if $external}target="_blank"{/if}
+					   n:class="!$external ? ajax">
+					   {$title}
+					</a>
+				</li>
+			</ul>
+		</div>
 		<div id="header" class="row">
 			<div class="logo-wrap pull-left">
 				<a href="{$basePath}/" class="logo-link ajax">
@@ -113,16 +124,13 @@
 						</ol>
 					</div>
 				</div>
-				<div class="special-pages right-block">
-					<ul>
-						<li n:foreach="$specialPagesMenu as $title => $link">
-							{var $external = Strings::startsWith($link, 'http://')}
-							<a href="{$link}" {if $external}target="_blank"{/if}
-							   n:class="!$external ? ajax, with-icon, icon-right">
-							   {$title}
-							</a>
+				<div class="g_one-right-block right-block">
+					<h3 class="with-icon icon-g_one"> G-ONE.tv </h3>
+					<ol>
+						<li n:foreach="$videos as $video">
+							{include g_one-video.latte video => $video}
 						</li>
-					</ul>
+					</ol>
 				</div>
 				<div class="foods right-block">
 					<h3 class="with-icon icon-food"> Jídelníček </h3>
