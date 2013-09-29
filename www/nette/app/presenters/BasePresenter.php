@@ -57,6 +57,7 @@ abstract class BasePresenter extends Presenter
 
 		/** @TODO avoid $this->context */
 		$menu = $this->context->params['menu'];
+		$current = NULL;
 		foreach ($menu as $title => &$link) {
 			if (Strings::startsWith($link, 'http://')) {
 				// $link is absolute URL - do nothing with it
@@ -64,10 +65,15 @@ abstract class BasePresenter extends Presenter
 				// $link is relative URL - prepend with $basePath
 				$link = $this->getHttpRequest()->url->baseUrl . ltrim($link, '/');
 			} else {
-				$link = $this->link($link);
+				$origLink = $link;
+				$link = $this->link($origLink);
+				if ($current === NULL && $this->isLinkCurrent($origLink)) {
+					$current = $link;
+				}
 			}
 		}
 		$template->specialPagesMenu = $menu;
+		$template->specialPagesCurrent = $current;
 		$template->foods = $this->foods->getFutureFoods();
 
 		$template->latestJoke = $this->jokes->getLatest();
@@ -75,6 +81,7 @@ abstract class BasePresenter extends Presenter
 
 		if ($this->isAjax()) {
 		    $this->invalidateControl('title');
+		    $this->invalidateControl('specialPages');
 		    $this->invalidateControl('flashes');
 		    $this->invalidateControl('content');
 		}

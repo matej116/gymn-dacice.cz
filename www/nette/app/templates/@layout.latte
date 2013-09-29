@@ -57,12 +57,12 @@
 		</ul>
 	</div>
 	<div id="page" class="container main-container">
-		<div class="special-pages">
+		<div class="special-pages" n:snippet="specialPages">
 			<ul>
 				<li n:foreach="$specialPagesMenu as $title => $link">
 					{var $external = Strings::startsWith($link, 'http://')}
 					<a href="{$link}" {if $external}target="_blank"{/if}
-					   n:class="!$external ? ajax">
+					   n:class="!$external ? ajax, link-block, link-block-gray, $specialPagesCurrent === $link ? link-block-gray-active">
 					   {$title}
 					</a>
 				</li>

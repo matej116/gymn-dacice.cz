@@ -277,7 +277,8 @@ a.link-block-gray:hover {
     color: #000;
 }
 
-.link-block-gray-active {
+.link-block-gray-active,
+a.link-block-gray-active:hover {
     background-color: #535354;
     color: #fff;
 }
@@ -503,20 +504,16 @@ div.content {
 }
 .special-pages a {
     padding: 0 5px;
-    display: block;
     line-height: 40px;
     height: 40px;
     margin: 0 1px;
-    background-color: #d4d4d6;
-    background-position: 95% 50%;
     color: #525252;
     font-size: 17px;
     text-align: center;
+    display: block;
 }
-.special-pages a:hover {
-    background-color: #e4e4e6;
-    text-decoration: none;
-    background-position: right 50%;
+.special-pages a.link-block-gray-active {
+    color: #fff;
 }
 
 .quickcontact-right-block, .joke-right-block {
