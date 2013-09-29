@@ -349,6 +349,7 @@ div.content {
 .article .pravy {
     /* back compatibility */
     text-align: right;
+    padding: 0 10px 0 0;
 }
 
 .article:last-of-type {
