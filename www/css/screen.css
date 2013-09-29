@@ -440,7 +440,7 @@ div.content {
     margin: 0;
 }
 
-.foods ol.content > li {
+.right-block ol.content > li {
     margin: 20px 20px 30px 65px;
     position: relative;
 }
@@ -532,9 +532,9 @@ div.content {
     list-style: none;
 }
 
-.g_one-right-block ol li {
+.g_one-right-block ol.content > li {
     margin: 10px auto;
-    width: 178px;
+    width: 178px;    
 }
 
 .joke-right-block {
