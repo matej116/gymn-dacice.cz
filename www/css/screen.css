@@ -442,6 +442,14 @@ div.content {
     background-position: 16px 50%;
 }
 
+.right-block h3 a {
+    color: inherit;
+}
+
+.right-block h3 a:hover {
+    text-decoration: inherit;
+}
+
 /* Fix for mobile Safari */
 .scrollable .content {
     -webkit-overflow-scrolling: touch;
