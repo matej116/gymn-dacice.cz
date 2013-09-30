@@ -266,7 +266,7 @@ button.link-block:hover {
 .link-block-gray {
     height: 35px;
     line-height: 35px;
-    background: #d4d4d6;
+    background-color: #d4d4d6;
     color: #000;
     padding: 0 12px;
     font-size: 13px;
@@ -299,6 +299,7 @@ a.link-block-gray-active:hover {
     width: 63px;
     padding: 0;
 }
+
 
 div.content {
     margin-bottom: 40px;
@@ -527,7 +528,7 @@ div.content {
     width: 100%; /* trigger fixed layout on table */
 }
 .special-pages a {
-    padding: 0 5px;
+    padding: 0;
     line-height: 40px;
     height: 40px;
     margin: 0 1px;
@@ -538,6 +539,23 @@ div.content {
 }
 .special-pages a.link-block-gray-active {
     color: #fff;
+}
+
+a.link-ext {
+    font-size: 17px;
+    width: 100%;
+    display: block;
+}
+
+a.link-ext.with-icon {
+    padding-left: 10px;    
+    background-position: 95% 50%;
+}
+
+a.link-ext:hover {    
+    background-color: #e4e4e6;
+    text-decoration: none;
+    background-position: right 50%;
 }
 
 .quickcontact-right-block, .joke-right-block {

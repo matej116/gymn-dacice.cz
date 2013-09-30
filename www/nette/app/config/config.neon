@@ -46,7 +46,6 @@ common:
 			'Třídy': SpecialPage:classes
 			'Absolventi': /files/absolventi.pdf
 			'Návštěvní kniha': GuestBook:default
-			'Bazar učebnic': http://bazarucebnic.g6.cz/
 
 	php:
 		date.timezone: Europe/Prague
