@@ -444,11 +444,10 @@ div.content {
 }
 
 .right-block h3 a {
-    color: inherit;
+    color: #555;
 }
-
 .right-block h3 a:hover {
-    text-decoration: inherit;
+    color: #000;
 }
 
 /* Fix for mobile Safari */
