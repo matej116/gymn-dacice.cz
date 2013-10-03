@@ -55,11 +55,11 @@
 			<a n:href="show id => $article->id" title="Přejít na článek" 
 			   class="ajax article-info with-icon icon-lightgray-attachment" n:if="$photoCount || $attachmentCount">
 				{if $photoCount}
-					{$photoCount} {$photoCount > 1 ? ($photoCount > 5 ? 'fotek' : 'fotky') : 'fotka'}
+					{$photoCount} {$photoCount > 1 ? ($photoCount >= 5 ? 'fotek' : 'fotky') : 'fotka'}
 				{/if}
 				{if $photoCount && $attachmentCount} a {/if}
 				{if $attachmentCount}
-					{$attachmentCount} {$attachmentCount > 1 ? ($attachmentCount > 5 ? 'souborů' : 'soubory') : 'soubor'}
+					{$attachmentCount} {$attachmentCount > 1 ? ($attachmentCount >= 5 ? 'souborů' : 'soubory') : 'soubor'}
 				{/if}
 			</a>
 			<a n:href="show id => $article->id" class="link-block link-block-small ajax">
