@@ -80,7 +80,7 @@ common:
 		photos: PhotoStorage(%wwwDir%, %photos.dir%)
 		jokes: Jokes
 		jokeImages: PhotoStorage(%wwwDir%, %jokes.dir%)
-		attachments: UploadFileStorage(%wwwDir%, 'files')
+		files: DatabaseFileStorage(..., 'file', %wwwDir%, 'files')
 		fulltextSearcher: FulltextSearcher(..., 'fulltext_article')
 		guestBook: GuestBook
 		foods: Foods

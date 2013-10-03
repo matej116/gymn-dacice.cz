@@ -79,9 +79,10 @@ class AdminPresenter extends BasePresenter {
 	}
 
 	public function handleDeleteAttachment($fileId) {
-		$file = $this->articles->getAttachmentFile($fileId);
+		$this->db->beginTransaction();
 		$this->articles->deleteAttachment($this->params['id'], $fileId);
-		$this->context->attachments->delete($file->filename);
+		$this->context->files->deleteById($fileId);
+		$this->db->commit();
 		$this->flashMessage("Přiloha smazána");
 		$this->redirect('this');
 	}
@@ -181,9 +182,10 @@ class AdminPresenter extends BasePresenter {
 
 	public function attachmentFormSubmitted(AppForm $form) {
 		$values = $form->values;
-		$file = $values->file;
-		$filename = $this->context->attachments->save($file);
-		$this->articles->addAttachment($this->params['id'], $values->title, $filename);
+		$this->db->beginTransaction();
+		$fileId = $this->context->files->save($values->file, '', $values->title);
+		$this->articles->pairAttachment($this->params['id'], $fileId);
+		$this->db->commit();
 		$this->flashMessage('Příloha uložena');
 		$this->redirect('this');
 	}
@@ -196,9 +198,15 @@ class AdminPresenter extends BasePresenter {
 			->setValue('');
 		$form->addText('title', 'Titulek');
 		$form->addTextArea('text', 'Text');
+		$form->addUpload('file', 'Přiložený soubor');
 		if (isset($this->params['id'])) {
-			$form->setValues($this->db->table('event')->wherePrimary($this->params['id'])->fetch()->toArray());
+			$event = $this->db->table('event')->wherePrimary($this->params['id'])->fetch()->toArray();
 			$form->addSubmit('change', 'Upravit');
+			if ($event['file_id']) {
+				$fileName = $this->context->files->getFilename($event['file_id']);
+				$form->addSubmit('deleteFile', "Upravit a smazat přiložený soubor ($fileName)");
+			}
+			$form->setValues($event);
 		} else {
 			$form->addSubmit('add', 'Přidat');
 		}
@@ -234,13 +242,33 @@ class AdminPresenter extends BasePresenter {
 		if ($values['date_to'] === '') {
 			$values['date_to'] = NULL;
 		}
+		$file = $values['file'];
+		unset($values['file']);
+		$this->db->beginTransaction();
+		$fileWillBeDeleted = isset($this->params['id']) && $form->submitted->name === 'deleteFile';
+		$values['file_id'] = NULL;
+		if (!$fileWillBeDeleted && $file->isOk()) {
+			$fileId = $this->context->files->save($file, '', 'Příloha k akci');
+			$this->flashMessage('Novy soubor byl pridan k akci');
+			$values['file_id'] = $fileId;
+			$fileWillBeDeleted = TRUE; // delete previous file
+		}
 		if (isset($this->params['id'])) {
-			$this->db->table('event')->wherePrimary($this->params['id'])->update($values);
+			$eventSelection = $this->db->table('event')->wherePrimary($this->params['id']);
+			if ($fileWillBeDeleted) {
+				$fileId = $eventSelection->fetch()->file_id;
+			}
+			$eventSelection->update($values);
+			if ($fileWillBeDeleted && $fileId) {
+				$this->context->files->deleteById($fileId);
+				$this->flashMessage('Stary soubor byl odebran od akce a smazan');
+			}
 			$this->flashMessage('Akce upravena');
 		} else {
 			$this->db->table('event')->insert($values);
 			$this->flashMessage('Akce přidána');
 		}
+		$this->db->commit();
 		$this->redirect('events');
 	}
 

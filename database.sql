@@ -120,7 +120,10 @@ CREATE TABLE `event` (
   `text` varchar(1023) COLLATE utf8_czech_ci NOT NULL,
   `date` date NOT NULL,
   `date_to` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `file_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `file_id` (`file_id`),
+  CONSTRAINT `event_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `file` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 

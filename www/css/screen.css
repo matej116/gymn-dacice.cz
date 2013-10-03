@@ -176,6 +176,9 @@ a:focus {
 .icon-play {    
     background-image: url('../img/icons/white/play.png');    
 }
+.icon-white-right {
+    background-image: url('../img/icons/white/right.png');
+}
 .icon-download-black {
     background-image: url('../img/icons/black/download.png');    
 }
@@ -500,6 +503,36 @@ div.content {
 
 .events li p {
     margin-left: -50px;
+}
+
+a.event-attachment-link {
+    display: block;
+    height: 33px;
+    font-size: 14px;
+    line-height: 33px;
+    background-color: #e8e8eb;
+    color: #585859;
+    padding-left: 13px;
+    margin-left: -50px;
+}
+
+a.event-attachment-link span {
+    display: block;
+    float: right;
+    height: 33px;
+    width: 33px;
+    background-position: 1px 1px;
+    background-color: #3d6aa1;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+a.event-attachment-link:hover {
+    background-color: #E0E0E5;
+    color: #000;
+    text-decoration: none;
+}
+a.event-attachment-link:hover span {
+    background-color: #3580db;
 }
 
 .foods .soup {

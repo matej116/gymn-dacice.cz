@@ -113,32 +113,20 @@ class Articles extends Object {
 		));
 	}
 
-	public function addAttachment($articleId, $title, $filename) {
-		$this->db->beginTransaction();
-		$file = $this->db->table('file')->insert(array(
-			'title' => $title,
-			'filename' => $filename,
-		));
+	/**
+	 * @throws PDOException
+	 */
+	public function pairAttachment($articleId, $fileId) {
 		$this->db->table('attachment')->insert(array(
 			'article_id' => $articleId,
-			'file_id' => $file->id,
+			'file_id' => $fileId,
 		));
-		$this->db->commit();
-	}
-
-	public function getAttachmentFile($fileId) {
-		return $this->db->table('file')->wherePrimary($fileId)->fetch();
 	}
 
 	public function deleteAttachment($articleId, $fileId) {
-		$this->db->beginTransaction();
-		$deleted = $this->db->table('attachment')
-				->where('article_id', $articleId)
-				->where('file_id', $fileId)
-				->delete();
-		$this->db->table('file')
-			->where('id', $fileId)
+		$this->db->table('attachment')
+			->where('article_id', $articleId)
+			->where('file_id', $fileId)
 			->delete();
-		$this->db->commit();
 	}
 }

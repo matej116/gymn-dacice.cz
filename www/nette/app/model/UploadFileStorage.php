@@ -22,13 +22,12 @@ class UploadFileStorage extends Object {
 		return $this->dir;
 	}
 
-	public function delete() {
-		if (func_num_args() > 1) {
-			$args = func_get_args();
-			return array_map(callback($this, 'delete'), $args);
+	public function delete($filename) {
+		$filename = $this->prefix($filename);
+		if (file_exists($filename)) {
+			return unlink($filename);
 		} else {
-			$file = func_get_arg(0);
-			return @unlink($this->prefix($file));
+			return FALSE;
 		}
 	}
 

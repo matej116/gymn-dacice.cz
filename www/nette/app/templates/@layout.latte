@@ -120,6 +120,10 @@
 								<p>
 									{$event->text}
 								</p>
+								<a n:if="$event->file" href="{$basePath}/files/{$event->file->filename}" target="_blank"
+								   title="{$event->file->title}" class="event-attachment-link">
+									Více informací <span class="with-icon icon-white-right">&gt;</span>
+								</a>
 							</li>
 						</ol>
 					</div>
