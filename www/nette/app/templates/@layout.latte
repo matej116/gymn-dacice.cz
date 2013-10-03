@@ -112,10 +112,10 @@
 						<ol class="content">
 							<li n:foreach="$events as $event">
 								<h4 class="title"> {$event->title} </h4>
-								<div class="date">
+								<div n:class="date, $event->date_to ? small">
 									<div class="short-weekday">{$event->date|czechDate:'shortWeekDay'}</div>
-									{$event->date|date:'j. n.'}
-									{if $event->date_to} do {$event->date_to|date:'j. n.'} {/if}
+									{if $event->date_to} od {/if} {$event->date|date:'j. n.'}
+									{if $event->date_to} <br> do {$event->date_to|date:'j. n.'} {/if}
 								</div>
 								<p>
 									{$event->text}

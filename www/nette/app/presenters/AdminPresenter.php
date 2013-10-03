@@ -192,6 +192,8 @@ class AdminPresenter extends BasePresenter {
 		$form = new AppForm;
 		$form->addText('date', 'Datum')
 			->setValue(new DateTime53);
+		$form->addText('date_to', 'Datum do')
+			->setValue('');
 		$form->addText('title', 'Titulek');
 		$form->addTextArea('text', 'Text');
 		if (isset($this->params['id'])) {
@@ -229,6 +231,9 @@ class AdminPresenter extends BasePresenter {
 
 	public function eventFormSubmitted(AppForm $form) {
 		$values = (array) $form->values;
+		if ($values['date_to'] === '') {
+			$values['date_to'] = NULL;
+		}
 		if (isset($this->params['id'])) {
 			$this->db->table('event')->wherePrimary($this->params['id'])->update($values);
 			$this->flashMessage('Akce upravena');

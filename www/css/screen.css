@@ -490,6 +490,10 @@ div.content {
     line-height: 1;
 }
 
+.right-block .date.small {
+    font-size: 0.8em;
+}
+
 .events li .date {
     top: 3px;
 }
@@ -524,7 +528,7 @@ div.content {
 }
 .special-pages li {
     display: table-cell;
-    width: 100%; /* trigger fixed layout on table */
+    /*width: 100%; /* trigger fixed layout on table */
 }
 .special-pages a {
     padding: 0;
