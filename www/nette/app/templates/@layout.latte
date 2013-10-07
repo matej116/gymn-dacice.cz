@@ -112,10 +112,12 @@
 						<ol class="content">
 							<li n:foreach="$events as $event">
 								<h4 class="title"> {$event->title} </h4>
-								<div n:class="date, $event->date_to ? small">
+								<div class="date">
 									<div class="short-weekday">{$event->date|czechDate:'shortWeekDay'}</div>
-									{if $event->date_to} od {/if} {$event->date|date:'j. n.'}
-									{if $event->date_to} <br> do {$event->date_to|date:'j. n.'} {/if}
+									<div n:class="date-days, $event->date_to ? small">
+										{if $event->date_to} od {/if} {$event->date|date:'j. n.'}
+										{if $event->date_to} <br> do {$event->date_to|date:'j. n.'} {/if}
+									</div>
 								</div>
 								<p>
 									{$event->text}
@@ -145,9 +147,11 @@
 					<div class="scrollable">
 						<ol class="content">
 							<li n:foreach="$foods as $food">
-								<div class="date">
-									<div class="short-weekday">{$food->date|czechDate:'shortWeekDay'}</div>
-									{$food->date|date:'j. n.'}
+								<div class="date">									
+									<div class="short-weekday">{$event->date|czechDate:'shortWeekDay'}</div>
+									<div n:class="date-days">
+										{$food->date|date:'j. n.'}
+									</div>
 								</div>
 								<div class="foods">
 									<ol class="mainfoods">
@@ -194,7 +198,7 @@
 		<div class="container main-container">
 			<ul class="row banners">
 				<li n:foreach="$banners as $banner" class="banner">
-					<a href="{$banner->link}" title="{$banner->title}" target="_blank">
+					<a href="{$banner->link}" title="{$banner->title}" {if (substr($banner->link, 0, 5) === 'http://')} target="_blank" {/if}>
 						<img src="http://www.gymn-dacice.cz/images/{$banner->imagefile}" alt="{$banner->title}">
 					</a>
 				</li>

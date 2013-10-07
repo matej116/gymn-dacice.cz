@@ -483,7 +483,6 @@ div.content {
     top: 0;
     position: absolute;
     width: 65px;
-    text-align: center;
     color: #b3b3b3;
 }
 
@@ -491,10 +490,17 @@ div.content {
     color: #000;
     font-size: 26px;
     line-height: 1;
+    text-align: center;
 }
 
-.right-block .date.small {
+.right-block .date .date-days {
+    text-align: center;
+}
+
+.right-block .date .date-days.small {    
     font-size: 0.8em;
+    padding-left: 10px;
+    text-align: left;
 }
 
 .events li .date {
