@@ -148,7 +148,7 @@
 						<ol class="content">
 							<li n:foreach="$foods as $food">
 								<div class="date">									
-									<div class="short-weekday">{$event->date|czechDate:'shortWeekDay'}</div>
+									<div class="short-weekday">{$food->date|czechDate:'shortWeekDay'}</div>
 									<div n:class="date-days">
 										{$food->date|date:'j. n.'}
 									</div>
