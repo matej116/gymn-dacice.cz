@@ -8,6 +8,19 @@ class AdminPresenter extends BasePresenter {
 	private $articles, $photos, $db;
 
 	private $jokeImages;
+
+	/**
+	 * @var string
+	 * @persistent
+	 */
+	public $type = NULL;
+
+	protected $pageTitles = array(
+		'article' => 'Články',
+		'event' => 'Akce',
+		'joke' => 'Vtipy',
+		'banner' => 'Bannery',
+	);
 	
 	public function startup() {
 		parent::startup();
@@ -18,12 +31,6 @@ class AdminPresenter extends BasePresenter {
 		// these services cannot be injected since they are instances of one class
 		$this->photos = $this->context->photos;
 		$this->jokeImages = $this->context->jokeImages;
-
-		$this->initAcl();
-	}
-
-	public function initAcl() {
-
 	}
 
 	public function injectArticles(Articles $articles) {
@@ -35,35 +42,64 @@ class AdminPresenter extends BasePresenter {
 	}
 
 	public function beforeRender() {
+		if ($this->type && !$this->user->isAllowed($this->type)) {
+			$this->flashMessage("Nemáte oprávnění k: '$this->type'", 'error');
+			$this->redirect('default', array('type' => NULL));
+		}
 		parent::beforeRender();
 		$this->template->authorizator = $this->context->getByType('IAuthorizator');
+		$this->template->title = @$this->pageTitles[$this->type];
 	}
 
-	public function renderArticle($id = NULL) {
-		if ($id) {
+	public function renderDefault() {
+		$pages = array();
+		foreach ($this->pageTitles as $page => $title) {
+			if ($this->user->isAllowed($page)) {
+				$pages[$page] = $title;
+			}
+		}
+		$this->template->pages = $pages;
+	}
+
+	public function renderItem($id = NULL) {
+		if ($this->type == 'article' && $id) {
+			$this->template->subTemplate = 'article';
 			$this->template->article = $this->articles->getArticle($id, FALSE);
 			$this->template->imagesDir = $this->photos->getDir();
 		}
 	}
 
-	public function renderEvent($id = NULL) {
-		// empty function, but it must exists, otherwise parameter $id is not added to subrequests
+	public function renderItems() {
+		switch ($this->type) {
+			case 'article':
+				$items = $this->articles->getAllArticles();
+				break;
+			
+			case 'event':
+				$items = $this->db->table('event')->where('date >= CURDATE()')->order('date ASC');
+				break;
+
+			case 'joke':
+				$items = $this->db->table('joke')->order('date_from DESC');
+				break;
+
+			case 'banner':
+				$items = $this->db->table('banner')->order('order');
+				break;
+
+			default: // NULL or anything other
+				throw new InvalidArgumentException("Type '$this->type' is not implemented");
+				break;
+		}
+		$this->template->items = $items;
 	}
 
-	public function renderArticles() {
-		$this->template->articles = $this->articles->getAllArticles();
-	}
-
-	public function renderEvents() {
-		$this->template->eventList = $this->db->table('event')->where('date >= CURDATE()')->order('date ASC');
-	}
-
-	public function renderJokes() {
-		$this->template->jokes = $this->db->table('joke')->order('date_from DESC');
-	}
-
-	public function renderJoke($id = NULL) {
-		// empty function, but it must exists, otherwise parameter $id is not added to subrequests		
+	public function createComponentEditForm() {
+		if ($this->type == 'edit') {
+			// avoid recursion
+			throw new InvalidStateException("'$this->type' is not allowed page name, factory recursion would occured");
+		}
+		return $this->createComponent($this->type . 'Form');
 	}
 
 	public function handleDeletePhoto($photoId) {
@@ -156,7 +192,7 @@ class AdminPresenter extends BasePresenter {
 		} else {
 			$this->flashMessage('Při ukládání článku došlo k chybě');
 		}
-		$this->redirect('articles');
+		$this->redirect('items');
 	}
 
 	public function photoUploadFormSubmitted(AppForm $form) {
@@ -214,6 +250,26 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+	public function createComponentBannerForm() {
+		$form = new AppForm;
+
+		$form->addText('title', 'Titulek');
+		$form->addText('link', 'Odkaz');
+		$form->addText('order', 'Pořadí')
+			->addRule(Form::INTEGER, 'Musíte zadat celé číslo');
+		$form->addUpload('imagefile', 'Obrázek');
+		if (isset($this->params['id'])) {
+			$banner = $this->db->table('banner')->wherePrimary($this->params['id'])->fetch()->toArray();
+			$form->addSubmit('change', 'Upravit');
+			$form->addSubmit('delete', 'Smazat')
+				->getControlPrototype()->onclick = 'return confirm("Opravdu?");';
+			$form->setValues($banner);
+		} else {
+			$form->addSubmit('add', 'Přidat');
+		}
+		$form->onSuccess[] = $this->bannerFormSubmitted;
+		return $form;
+	}
 
 	public function createComponentJokeForm() {
 		$form = new AppForm;
@@ -269,7 +325,47 @@ class AdminPresenter extends BasePresenter {
 			$this->flashMessage('Akce přidána');
 		}
 		$this->db->commit();
-		$this->redirect('events');
+		$this->redirect('items');
+	}
+
+	public function bannerFormSubmitted(AppForm $form) {
+		$values = (array) $form->values;
+		$image = $values['imagefile'];
+		unset($values['imagefile']);
+
+		$bannerSelection = isset($this->params['id']) ? 
+			$this->db->table('banner')->wherePrimary($this->params['id']) :
+			FALSE;
+		// @TODO make service
+		$files = new UploadFileStorage($this->context->params['wwwDir'], 'images');
+
+		if ($form->submitted->name == 'delete') {
+			@$files->delete($bannerSelection->fetch()->imagefile);
+			$bannerSelection->delete();
+			$this->flashMessage('Banner byl smazan');
+		} else {
+			if ($image->isOk()) {
+				// @TODO make service
+				$values['imagefile'] = $files->save($image);
+				if ($bannerSelection) {
+					$oldFile = $bannerSelection->fetch()->imagefile;
+					if (strlen($oldFile)) {
+						@$files->delete($oldFile);
+					}
+				}
+				$this->flashMessage('Nový obrázek byl uložen');
+			} else {
+				$this->flashMessage('Nový obrázek nebyl uložen (chyba nebo nebyl nahrán)');
+			}
+			if ($bannerSelection) {
+				$bannerSelection->update($values);
+				$this->flashMessage('Banner upraven');
+			} else {
+				$this->db->table('banner')->insert($values);
+				$this->flashMessage('Banner přidán');
+			}
+		}
+		$this->redirect('items');
 	}
 
 	public function jokeFormSubmitted(AppForm $form) {		
@@ -294,7 +390,7 @@ class AdminPresenter extends BasePresenter {
 			$this->jokes->insert($values);
 			$this->flashMessage('Vtip byl uložen');
 		}
-		$this->redirect('jokes');	
+		$this->redirect('items');	
 	}
 
 }

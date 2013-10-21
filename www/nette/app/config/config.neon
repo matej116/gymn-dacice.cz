@@ -108,6 +108,7 @@ common:
 				- addResource('article')
 				- addResource('event')
 				- addResource('joke')
+				- addResource('banner')
 				- allow('jokeAdmin', 'joke')
 				- allow('admin')
 

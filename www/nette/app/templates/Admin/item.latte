@@ -1,0 +1,9 @@
+{block #content}
+	
+	<a n:href="items">&lt; &lt; &lt; Zpět na seznam</a>
+
+	<h2 n:block="title">{$title} - úprava položky</h2>
+
+	{control editForm}
+
+	{ifset $subTemplate}{include "$subTemplate.latte"}{/ifset}

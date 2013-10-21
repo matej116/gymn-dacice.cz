@@ -1,0 +1,25 @@
+{block #content}
+
+	<a n:href="default type => NULL">&lt; &lt; &lt; Zpět</a>
+
+	<h2 n:block="title">{$title}</h2>
+	<a n:href="item">Přidat nový</a>
+	<h3>{ifset $listTitle}{$listTitle}{else}Seznam{/ifset}</h3>
+	<ul class="unstyled">
+		<li n:foreach="$items as $item">
+			<a n:href="item id => $item->id" title="Upravit">
+				{ifset $item->date_from}
+					<small>{$item->date_from|date:'j. n. Y'}</small> - 
+				{/ifset}
+				{ifset $item->date}
+					<small>{$item->date|date:'j. n. Y'}</small> - 
+				{/ifset}
+				{ifset $item->title}
+					{$item->title}
+				{else}
+					{$item->text|truncate:200}
+				{/ifset} 
+			</a>
+			<em n:if="isset($item->visible) && !$item->visible">skryté</em>
+		</li>
+	</ul>

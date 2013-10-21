@@ -199,7 +199,7 @@
 			<ul class="row banners">
 				<li n:foreach="$banners as $banner" class="banner">
 					<a href="{$banner->link}" title="{$banner->title}" {if (substr($banner->link, 0, 5) === 'http://')} target="_blank" {/if}>
-						<img src="http://www.gymn-dacice.cz/images/{$banner->imagefile}" alt="{$banner->title}">
+						<img src="{$basePath}/images/{$banner->imagefile}" alt="{$banner->title}">
 					</a>
 				</li>
 			</ul>
