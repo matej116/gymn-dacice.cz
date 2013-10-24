@@ -17,7 +17,11 @@
 				{ifset $item->title}
 					{$item->title}
 				{else}
-					{$item->text|truncate:200}
+					{ifset $item->text}
+						{$item->text|truncate:200}
+					{else}
+						{$item->file->title}
+					{/ifset}
 				{/ifset} 
 			</a>
 			<em n:if="isset($item->visible) && !$item->visible">skryté</em>

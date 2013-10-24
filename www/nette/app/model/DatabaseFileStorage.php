@@ -29,6 +29,12 @@ class DatabaseFileStorage extends UploadFileStorage {
 		return $row->id;
 	}
 
+	public function updateTitle($fileId, $title) {
+		return $this->getTable()->wherePrimary($fileId)->update(array(
+			'title' => $title,
+		));
+	}
+
 	public function delete($filename) {
 		$this->getTable()->where('filename', $filename)->delete();
 		return parent::delete($filename);

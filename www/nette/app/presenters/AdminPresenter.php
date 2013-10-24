@@ -20,6 +20,7 @@ class AdminPresenter extends BasePresenter {
 		'event' => 'Akce',
 		'joke' => 'Vtipy',
 		'banner' => 'Bannery',
+		'download' => 'Ke stažení',
 	);
 	
 	public function startup() {
@@ -85,6 +86,10 @@ class AdminPresenter extends BasePresenter {
 
 			case 'banner':
 				$items = $this->db->table('banner')->order('order');
+				break;
+
+			case 'download':
+				$items = $this->db->table('download');
 				break;
 
 			default: // NULL or anything other
@@ -250,6 +255,25 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+
+	public function createComponentDownloadForm() {
+		$form = new AppForm;
+		$form->addText('title', 'Titulek');
+		$form->addUpload('file', 'Přiložený soubor');
+		if (isset($this->params['id'])) {
+			$download = $this->db->table('download')->wherePrimary($this->params['id'])->fetch();
+			$form->addSubmit('change', 'Upravit');
+			$form->addSubmit('delete', 'Smazat')
+				->getControlPrototype()->onclick = 'return confirm("Opravdu?");';
+			$form['title']->setValue($download->file->title);
+		} else {
+			$form->addSubmit('add', 'Přidat');
+		}
+		$form->onSuccess[] = $this->downloadFormSubmitted;
+		return $form;
+	}
+
+
 	public function createComponentBannerForm() {
 		$form = new AppForm;
 
@@ -292,6 +316,50 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+
+	public function downloadFormSubmitted(AppForm $form) {
+		$values = (array) $form->values;
+		$file = $values['file'];
+		unset($values['file']);
+		$this->db->beginTransaction();
+		if ($file->isOk()) {
+			$fileId = $this->context->files->save($file, '', $values['title']);
+			$this->flashMessage('Novy soubor byl pridan');
+			$values['file_id'] = $fileId;
+			$fileWillBeDeleted = TRUE; // delete previous file
+		}
+		if (isset($this->params['id'])) {
+			$row = $this->db->table('download')->wherePrimary($this->params['id'])->fetch();
+			$fileId = $row->file_id;
+			$title = $values['title'];
+			unset($values['title']);
+			if (!empty($row))
+				$row->update($values);
+			if ($file->isOk()) {
+				$this->context->files->deleteById($fileId);
+				$this->flashMessage('Stary soubor byl odebran a smazan');
+			}
+			if ($form->submitted->name == 'delete') {
+				$row->delete();
+				@$this->context->files->delete($row->file->filename);
+				$this->flashMessage('Soubor ke stazeni byl smazan');
+			} else {
+				$this->context->files->updateTitle($row['file_id'], $title);
+				$this->flashMessage('Soubor ke stažení upraven');
+			}
+		} else {
+			if (!$file->isOk()) {
+				$this->db->rollback();
+				$form->addError('neni pridan soubor');
+				return;
+			}
+			unset($values['title']);
+			$this->db->table('download')->insert($values);
+			$this->flashMessage('Soubor ke stažení přidán');
+		}
+		$this->db->commit();
+		$this->redirect('items');
+	}
 
 	public function eventFormSubmitted(AppForm $form) {
 		$values = (array) $form->values;
