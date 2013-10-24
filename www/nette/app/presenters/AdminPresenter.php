@@ -21,6 +21,7 @@ class AdminPresenter extends BasePresenter {
 		'joke' => 'Vtipy',
 		'banner' => 'Bannery',
 		'download' => 'Ke stažení',
+		'document' => 'Úřední deska',
 	);
 	
 	public function startup() {
@@ -90,6 +91,10 @@ class AdminPresenter extends BasePresenter {
 
 			case 'download':
 				$items = $this->db->table('download');
+				break;
+
+			case 'document':
+				$items = $this->db->table('document');
 				break;
 
 			default: // NULL or anything other
@@ -273,6 +278,29 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+	public function createComponentDocumentForm() {		
+		$form = new AppForm;
+		$form->addText('title', 'Titulek');
+		$form->addText('date_from', 'Datum')
+			->setValue(new DateTime53);
+		$form->addText('date_to', 'Datum do')
+			->setValue('');
+		$form->addTextArea('description', 'Popis');
+		$form->addUpload('file', 'Přiložený soubor');
+		if (isset($this->params['id'])) {
+			$document = $this->db->table('document')->wherePrimary($this->params['id'])->fetch();
+			$form->addSubmit('change', 'Upravit');
+			$form->addSubmit('delete', 'Smazat')
+				->getControlPrototype()->onclick = 'return confirm("Opravdu?");';
+			$form->setValues($document->toArray());
+			$form['title']->setValue($document->file->title);
+		} else {
+			$form->addSubmit('add', 'Přidat');
+		}
+		$form->onSuccess[] = $this->documentFormSubmitted;
+		return $form;
+	}
+
 
 	public function createComponentBannerForm() {
 		$form = new AppForm;
@@ -356,6 +384,50 @@ class AdminPresenter extends BasePresenter {
 			unset($values['title']);
 			$this->db->table('download')->insert($values);
 			$this->flashMessage('Soubor ke stažení přidán');
+		}
+		$this->db->commit();
+		$this->redirect('items');
+	}
+
+	public function documentFormSubmitted(AppForm $form) {
+		$values = (array) $form->values;
+		$file = $values['file'];
+		unset($values['file']);
+		$this->db->beginTransaction();
+		if ($file->isOk()) {
+			$fileId = $this->context->files->save($file, '', $values['title']);
+			$this->flashMessage('Novy soubor byl pridan');
+			$values['file_id'] = $fileId;
+			$fileWillBeDeleted = TRUE; // delete previous file
+		}
+		if (isset($this->params['id'])) {
+			$row = $this->db->table('document')->wherePrimary($this->params['id'])->fetch();
+			$fileId = $row->file_id;
+			$title = $values['title'];
+			unset($values['title']);
+			if (!empty($row))
+				$row->update($values);
+			if ($file->isOk()) {
+				$this->context->files->deleteById($fileId);
+				$this->flashMessage('Stary soubor byl odebran a smazan');
+			}
+			if ($form->submitted->name == 'delete') {
+				$row->delete();
+				@$this->context->files->delete($row->file->filename);
+				$this->flashMessage('Soubor byl smazan z urdni desky');
+			} else {
+				$this->context->files->updateTitle($row['file_id'], $title);
+				$this->flashMessage('Soubor na uredni desce upraven');
+			}
+		} else {
+			if (!$file->isOk()) {
+				$this->db->rollback();
+				$form->addError('neni pridan soubor');
+				return;
+			}
+			unset($values['title']);
+			$this->db->table('document')->insert($values);
+			$this->flashMessage('Soubor přidán na uredni desku');
 		}
 		$this->db->commit();
 		$this->redirect('items');
