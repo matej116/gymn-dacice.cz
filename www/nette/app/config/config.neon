@@ -111,6 +111,7 @@ common:
 				- addResource('banner')
 				- addResource('download')
 				- addResource('document')
+				- addResource('alert')
 				- allow('jokeAdmin', 'joke')
 				- allow('admin')
 

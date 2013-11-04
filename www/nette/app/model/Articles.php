@@ -80,8 +80,17 @@ class Articles extends Object {
 		return $this->table(FALSE)->wherePrimary($id)->update($this->filterData($data));
 	}
 
-	public function getAllArticles() {
-		return $this->table(FALSE)->order('date DESC');
+	public function getAllArticles($field = NULL) {
+		$selection = $this->table(FALSE)->order('date DESC');
+		if ($field) {
+			$articles = array();
+			foreach ($selection as $id => $row) {
+				$articles[$id] = $row->title;
+			}
+			return $articles;
+		} else {
+			return $selection;
+		}
 	}
 
 	public function getPhoto($articleId, $photoId) {

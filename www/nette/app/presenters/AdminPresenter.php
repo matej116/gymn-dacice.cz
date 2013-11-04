@@ -2,6 +2,7 @@
 
 /**
  * @TODO create ArticleImageFacade class
+ * @TODO make clean code
  */
 class AdminPresenter extends BasePresenter {
 	
@@ -22,6 +23,7 @@ class AdminPresenter extends BasePresenter {
 		'banner' => 'Bannery',
 		'download' => 'Ke stažení',
 		'document' => 'Úřední deska',
+		'alert' => 'Upozornění',
 	);
 	
 	public function startup() {
@@ -95,6 +97,10 @@ class AdminPresenter extends BasePresenter {
 
 			case 'document':
 				$items = $this->db->table('document');
+				break;
+
+			case 'alert':
+				$items = $this->db->table('alert');
 				break;
 
 			default: // NULL or anything other
@@ -188,10 +194,44 @@ class AdminPresenter extends BasePresenter {
 		return $form;
 	}
 
+	public function createComponentAlertForm() {
+		$form = new AppForm;
+		$form->addText('title', 'Titulek');
+		$form->addSelect('article_id', 'Článek', $this->articles->getAllArticles('title'));
+		if (isset($this->params['id'])) {
+			$form->setValues($this->db->table('alert')->wherePrimary($this->params['id'])->fetch()->toArray());
+			$form->addSubmit('save', 'Uložit');
+			$form->addSubmit('delete', 'Odstranit');
+		} else {
+			$form->addSubmit('add', 'Přidat');
+		}
+		$form->onSuccess[] = $this->alertFormSubmitted;
+		return $form;
+	}
+
+	public function alertFormSubmitted(AppForm $form) {		
+		$id = isset($this->params['id']) ? $this->params['id'] : NULL;
+		$selection = $this->db->table('alert');
+		if ($id) {
+			if ($form->submitted->name == 'delete') {
+				$selection->wherePrimary($id)->delete();
+				$this->redirect('items');
+			} else {
+				$success = $selection->wherePrimary($id)->update((array) $form->values);
+			}
+		} else {
+			$success = $selection->insert((array) $form->values);
+		}
+		if ($success) {
+			$this->flashMessage($id ? 'Upozornění bylo uloženo' : 'Upozornění bylo vloženo');
+		} else {
+			$this->flashMessage('Při ukládání článku došlo k chybě');
+		}
+		$this->redirect('items');
+	}
 
 	public function articleFormSubmitted(AppForm $form) {
 		$articleId = isset($this->params['id']) ? $this->params['id'] : NULL;
-		dump($form->values);
 		if ($articleId) {
 			$success = $this->articles->update($articleId, $form->values);
 		} else {
