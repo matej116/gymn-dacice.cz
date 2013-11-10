@@ -27,7 +27,7 @@ class SpecialPagePresenter extends BasePresenter {
 		$template->documents = $this->db->table('document')
 			->where('date_from <= CURDATE()')
 			->where('date_to >= CURDATE()')
-			->order('id');
+			->order('date_from DESC');
 	}
 
 	/**
