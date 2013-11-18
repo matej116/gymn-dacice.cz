@@ -78,11 +78,18 @@ a:focus {
     padding-bottom: 40px;
 }
 
-.head-alerts {
+.head-alerts-wrap {
     background: #3d6aa1;
 }
 
-.head-alerts ul {
+.head-alerts {
+    display: table;
+    table-layout:fixed;
+    width: 100%;
+}
+
+.head-alerts-list {
+    display: table-row;
     list-style: none;
     padding: 0;
 }
@@ -92,6 +99,8 @@ a:focus {
     line-height: 68px;
     font-size: 20px;
     color: #fff;
+    text-align: center;
+    display: table-cell;
 }
 
 .head-alerts .head-alert a {
