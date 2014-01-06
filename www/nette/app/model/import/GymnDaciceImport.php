@@ -186,10 +186,10 @@ class GymnDaciceImport extends Object {
 
 		l('Updating end years of classes');
 		$endYears = array();
-		$thisYear = date('Y');
+		$thisYear = SchoolHelpers::getCurrentSchoolYear();
 		foreach ($this->classes as $classes) {
 			for ($i=0; $i < count($classes); $i++) { 
-				$endYears[$classes[$i]] = $thisYear + (count($classes) - $i) - 1;
+				$endYears[$classes[$i]] = $thisYear + (count($classes) - $i);
 			}
 		}
 		$classes = $db->table('class');

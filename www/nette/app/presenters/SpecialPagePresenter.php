@@ -45,7 +45,8 @@ class SpecialPagePresenter extends BasePresenter {
 	public function renderClasses() {
 		$classNames = $this->context->params['classes'];
 		$classes = array_fill_keys(array_keys($classNames), array());
-		foreach ($this->db->table('class')->where('end_year >= ?', date('Y')) as $classRow) {
+		$currentYear = SchoolHelpers::getCurrentSchoolYear();
+		foreach ($this->db->table('class')->where('end_year >= ?', $currentYear) as $classRow) {
 			$title = NULL;
 			foreach ($classNames as $classesTitle => $names) {
 				if (in_array($classRow->name, $names)) {
