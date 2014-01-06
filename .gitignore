@@ -3,6 +3,7 @@ temp/
 config.local.neon
 secret.neon
 
+/.idea/
 .git*
 .DS_Store
 .htdeployment
